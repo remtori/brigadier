@@ -30,7 +30,7 @@ describe('ArgumentBuilderTest', () => {
         builder.then(arg);
 
         assert.equal([...builder.getArguments()].length, 1);
-        expect(builder.getArguments().next().value.equals(arg.build())).to.equal(true);
+        expect([...builder.getArguments()][0].equals(arg.build())).to.equal(true);
     })
 
     it('testRedirect', () => {		

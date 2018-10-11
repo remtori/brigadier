@@ -5,7 +5,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const CommandSyntaxException_1 = __importDefault(require("../exceptions/CommandSyntaxException"));
 const Suggestions_1 = __importDefault(require("../suggestion/Suggestions"));
-const EXAMPLES = new Set(["0", "123", "-123"]).values();
+const EXAMPLES = ["0", "123", "-123"];
 class IntegerArgumentType {
     constructor(minimum, maximum) {
         this.minimum = minimum;

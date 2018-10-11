@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-const EXAMPLES = new Set(["true", "false"]).values();
+const EXAMPLES = ["true", "false"];
 class BoolArgumentType {
     constructor() {
     }

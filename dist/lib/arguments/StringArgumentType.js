@@ -51,7 +51,7 @@ class StringArgumentType {
     }
     ;
     getExamples() {
-        return new Set().values();
+        return [];
     }
     static escapeIfRequired(input) {
         for (let c of input) {
