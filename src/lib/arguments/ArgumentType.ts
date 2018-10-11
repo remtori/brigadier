@@ -23,5 +23,5 @@ export default interface ArgumentType<T> {
     
     listSuggestions(context: CommandContext<any>, builder: SuggestionsBuilder): Promise<Suggestions>;
     
-    getExamples(): IterableIterator<string>;
+    getExamples(): Iterable<string>;
 }

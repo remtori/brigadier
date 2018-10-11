@@ -18,7 +18,7 @@ declare interface Predicate<T> {
 	(t: T): boolean;
 }
 declare interface AmbiguityConsumer<S> {
-	ambiguous(parent: CommandNode<S>, child: CommandNode<S>, sibling: CommandNode<S>, inputs: IterableIterator<string>): void;
+	ambiguous(parent: CommandNode<S>, child: CommandNode<S>, sibling: CommandNode<S>, inputs: Iterable<string>): void;
 }
 declare interface ImmutableStringReader {
 	getString(): string;
@@ -36,7 +36,6 @@ declare interface Message {
     getString(): string;
 }
 declare class LiteralMessage implements Message {
-	str: string;
 	constructor(str: string);
 	getString(): string;
 	toString(): string;
@@ -63,7 +62,6 @@ declare class DynamicCommandExceptionType implements CommandExceptionType {
 	createWithContext(reader: ImmutableStringReader, arg: Object): CommandSyntaxException;
 }
 declare class SimpleCommandExceptionType implements CommandExceptionType {
-	private message;
 	constructor(message: Message);
 	create(): CommandSyntaxException;
 	createWithContext(reader: ImmutableStringReader): CommandSyntaxException;
@@ -174,13 +172,13 @@ declare class RootCommandNode<S> extends CommandNode<S> {
 	equals(o: any): boolean;
 	createBuilder(): ArgumentBuilder<S, any>;
 	getSortedKey(): string;
-	getExamples(): IterableIterator<string>;
+	getExamples(): Iterable<string>;
 	toString(): string;
 }
 declare abstract class ArgumentBuilder<S, T extends ArgumentBuilder<S, T>> {
 	abstract getThis(): T;
 	then(arg: ArgumentBuilder<S, any> | CommandNode<S>): T;
-	getArguments(): IterableIterator<CommandNode<S>>;
+	getArguments(): Iterable<CommandNode<S>>;
 	executes(command: Command<S>): T;
 	getCommand(): Command<S>;
 	requires(requirement: Predicate<S>): T;
@@ -197,7 +195,7 @@ declare abstract class CommandNode<S> {
 	constructor(command: Command<S>, requirement: Predicate<S>, redirect: CommandNode<S>, modifier: RedirectModifier<S>, forks: boolean);
 	abstract getNodeType(): string;
 	getCommand(): Command<S>;
-	getChildren(): IterableIterator<CommandNode<S>>;
+	getChildren(): Iterable<CommandNode<S>>;
 	getChildrenCount(): number;
 	getChild(name: string): CommandNode<S>;
 	getRedirect(): CommandNode<S>;
@@ -214,10 +212,10 @@ declare abstract class CommandNode<S> {
 	abstract listSuggestions(context: CommandContext<S>, builder: SuggestionsBuilder): Promise<Suggestions>;
 	abstract createBuilder(): ArgumentBuilder<S, any>;
 	abstract getSortedKey(): string;
-	getRelevantNodes(input: StringReader): IterableIterator<CommandNode<S>>;
+	getRelevantNodes(input: StringReader): Iterable<CommandNode<S>>;
 	compareTo(o: CommandNode<S>): number;
 	isFork(): boolean;
-	abstract getExamples(): IterableIterator<string>;
+	abstract getExamples(): Iterable<string>;
 }
 declare class ParsedArgument<S, T> {
 	constructor(start: number, end: number, result: T);
@@ -297,7 +295,7 @@ declare class LiteralCommandNode<S> extends CommandNode<S> {
 	getUsageText(): string;
 	createBuilder(): LiteralArgumentBuilder<S>;
 	getSortedKey(): string;
-	getExamples(): IterableIterator<string>;
+	getExamples(): Iterable<string>;
 	toString(): string;
 }
 declare class LiteralArgumentBuilder<S> extends ArgumentBuilder<S, LiteralArgumentBuilder<S>> {
@@ -312,7 +310,7 @@ declare class BoolArgumentType implements ArgumentType<boolean> {
 	static getBool(context: CommandContext<any>, name: string): boolean;
 	parse(reader: StringReader): boolean;
 	listSuggestions(context: CommandContext<any>, builder: SuggestionsBuilder): Promise<Suggestions>;
-	getExamples(): IterableIterator<string>;
+	getExamples(): Iterable<string>;
 }
 export function bool(): BoolArgumentType;
 declare class IntegerArgumentType implements ArgumentType<number> {	
@@ -323,7 +321,7 @@ declare class IntegerArgumentType implements ArgumentType<number> {
 	equals(o: any): boolean;
 	toString(): string;
 	listSuggestions(context: CommandContext<any>, builder: SuggestionsBuilder): Promise<Suggestions>;
-	getExamples(): IterableIterator<string>;
+	getExamples(): Iterable<string>;
 }
 export function integer(min?: number, max?: number): IntegerArgumentType;
 declare class FloatArgumentType implements ArgumentType<number> {	    
@@ -334,7 +332,7 @@ declare class FloatArgumentType implements ArgumentType<number> {
 	equals(o: any): boolean;
 	toString(): string;
 	listSuggestions(context: CommandContext<any>, builder: SuggestionsBuilder): Promise<Suggestions>;
-	getExamples(): IterableIterator<string>;
+	getExamples(): Iterable<string>;
 }
 export function float(min?: number, max?: number): FloatArgumentType;
 declare enum StringType {
@@ -348,7 +346,7 @@ declare class StringArgumentType implements ArgumentType<string> {
 	parse(reader: StringReader): string;
 	toString(): string;
 	listSuggestions(context: CommandContext<any>, builder: SuggestionsBuilder): Promise<Suggestions>;
-	getExamples(): IterableIterator<string>;
+	getExamples(): Iterable<string>;
 	static escapeIfRequired(input: string): String;
 	private static escape;
 }
@@ -358,7 +356,7 @@ export declare function greedyString(): StringArgumentType;
 declare interface ArgumentType<T> {
 	parse(reader: StringReader): T;
 	listSuggestions(context: CommandContext<any>, builder: SuggestionsBuilder): Promise<Suggestions>;
-	getExamples(): IterableIterator<string>;
+	getExamples(): Iterable<string>;
 }
 declare interface SuggestionProvider<S> {
     getSuggestions(context: CommandContext<S>, builder: SuggestionsBuilder): Promise<Suggestions>;
@@ -376,7 +374,7 @@ declare class ArgumentCommandNode<S, T> extends CommandNode<S> {
 	isValidInput(input: string): boolean;
 	equals(o: any): boolean;
 	getSortedKey(): string;
-	getExamples(): IterableIterator<string>;
+	getExamples(): Iterable<string>;
 	toString(): string;
 }
 declare class RequiredArgumentBuilder<S, T> extends ArgumentBuilder<S, RequiredArgumentBuilder<S, T>> {

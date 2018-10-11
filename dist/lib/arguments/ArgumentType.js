@@ -7,7 +7,7 @@ const BoolArgumentType_1 = __importDefault(require("./BoolArgumentType"));
 const IntegerArgumentType_1 = __importDefault(require("./IntegerArgumentType"));
 const FloatArgumentType_1 = __importDefault(require("./FloatArgumentType"));
 const StringArgumentType_1 = __importDefault(require("./StringArgumentType"));
-exports.Type = {
+exports.DefaultType = {
     bool: BoolArgumentType_1.default.bool,
     integer: IntegerArgumentType_1.default.integer,
     float: FloatArgumentType_1.default.float,

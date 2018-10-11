@@ -34,7 +34,7 @@ abstract class ArgumentBuilder<S, T extends ArgumentBuilder<S, T>> {
         return this.getThis();
     }
     
-    public getArguments(): IterableIterator<CommandNode<S>> {
+    public getArguments(): Iterable<CommandNode<S>> {
         return this.args.getChildren();
     }
     

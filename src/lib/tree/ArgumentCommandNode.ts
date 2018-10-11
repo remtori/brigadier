@@ -111,7 +111,7 @@ export default class ArgumentCommandNode<S, T> extends CommandNode<S> {
         return this.name;
     }
     
-    public getExamples(): IterableIterator<string> {
+    public getExamples(): Iterable<string> {
         return this.type.getExamples();
     }
     

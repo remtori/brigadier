@@ -5,7 +5,7 @@ import Suggestions from "../suggestion/Suggestions"
 import SuggestionsBuilder from "../suggestion/SuggestionsBuilder"
 import ArgumentType from "./ArgumentType"
 
-const EXAMPLES: IterableIterator<string> = new Set(["true", "false"]).values();
+const EXAMPLES = ["true", "false"];
 
 export default class BoolArgumentType implements ArgumentType<boolean> {        
     
@@ -36,7 +36,7 @@ export default class BoolArgumentType implements ArgumentType<boolean> {
         return builder.buildPromise();
     }
 
-    public getExamples(): IterableIterator<string> {
+    public getExamples(): Iterable<string> {
         return EXAMPLES;
     }
 }

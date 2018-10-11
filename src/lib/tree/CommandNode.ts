@@ -161,7 +161,7 @@ abstract class CommandNode<S> {
     
     public abstract getSortedKey(): string;
     
-    public getRelevantNodes(input: StringReader): IterableIterator<CommandNode<S>> {
+    public getRelevantNodes(input: StringReader): Iterable<CommandNode<S>> {
         if (this.literals.size > 0) {
             let cursor: number = input.getCursor();
             while ((input.canRead() 
@@ -198,7 +198,7 @@ abstract class CommandNode<S> {
         return this.forks;
     }
     
-    public abstract getExamples(): IterableIterator<string>;
+    public abstract getExamples(): Iterable<string>;
 }
 
 export default CommandNode;

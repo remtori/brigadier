@@ -6,7 +6,7 @@ import Suggestions from "../suggestion/Suggestions"
 import SuggestionsBuilder from "../suggestion/SuggestionsBuilder"
 import ArgumentType from "./ArgumentType"
 
-const EXAMPLES: IterableIterator<string> = new Set(["0", "123", "-123"]).values();
+const EXAMPLES = ["0", "123", "-123"];
 
 export default class IntegerArgumentType implements ArgumentType<number> {    
     
@@ -78,7 +78,7 @@ export default class IntegerArgumentType implements ArgumentType<number> {
 		return Suggestions.empty();
 	};
 
-    public getExamples(): IterableIterator<string> {
+    public getExamples(): Iterable<string> {
         return EXAMPLES;
     }
 }

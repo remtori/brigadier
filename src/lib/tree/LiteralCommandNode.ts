@@ -15,7 +15,7 @@ export default class LiteralCommandNode<S> extends CommandNode<S> {
     
     private literal: string;
     
-    public constructor (literal: string, command: Command<S>, requirement: Predicate<S>, redirect: CommandNode<S>, modifier: RedirectModifier<S>, forks: boolean) {
+    public constructor(literal: string, command: Command<S>, requirement: Predicate<S>, redirect: CommandNode<S>, modifier: RedirectModifier<S>, forks: boolean) {
         super(command, requirement, redirect, modifier, forks);
         this.literal = literal;
 	}
@@ -107,7 +107,7 @@ export default class LiteralCommandNode<S> extends CommandNode<S> {
         return this.literal;
     }
     
-    public getExamples(): IterableIterator<string> {
+    public getExamples(): Iterable<string> {
 		return new Set([this.literal]).values();
     }
     

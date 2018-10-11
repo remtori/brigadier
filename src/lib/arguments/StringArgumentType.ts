@@ -62,8 +62,8 @@ export default class StringArgumentType implements ArgumentType<string> {
 		return Suggestions.empty()
 	};
     
-    public getExamples(): IterableIterator<string> {
-        return new Set().values();
+    public getExamples(): Iterable<string> {
+        return [];
     }
     
     public static escapeIfRequired(input: string): String {
