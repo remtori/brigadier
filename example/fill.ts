@@ -17,12 +17,11 @@ class BlockPos implements ArgumentType<BlockPos> {
 		return this;
 	}
 	listSuggestions(context: CommandContext<Object>, builder: SuggestionsBuilder) {
-		return Promise.resolve(Suggestions.empty());
+		return Suggestions.empty();
 	}
 	getExamples() {
 		return [
-			"1 2 3",
-			"~ ~-1 ~" // Unsupported
+			"1 2 3"
 		]
 	}
 }
@@ -34,7 +33,6 @@ dispatcher.register(
 		argument("pos1", new BlockPos()).then(
 			argument("pos2", new BlockPos()).then(
 				argument("block", string()).executes(context => {
-					console.log("fill")
 					console.log(context.getArgument("pos1", BlockPos))
 					console.log(context.getArgument("pos2", BlockPos))
 					console.log(context.getArgument("block", Primitive.String))

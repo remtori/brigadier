@@ -74,8 +74,10 @@ export default class CommandContext<S> {
             throw new Error("No such argument '" + name + "' exists on this command");
         }
 
-		const result = arg.getResult();		
-        if (PRIMITIVE_TO_WRAPPER.has(clazz)) {
+		const result = arg.getResult();
+		if (clazz == null) {
+			return result;
+		} else if (PRIMITIVE_TO_WRAPPER.has(clazz)) {
             return PRIMITIVE_TO_WRAPPER.get(clazz)(result);
 		} else {
 			try {

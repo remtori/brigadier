@@ -47,16 +47,22 @@ class CommandContext {
         const arg = this.args.get(name);
         if (arg == null) {
             throw new Error("No such argument '" + name + "' exists on this command");
-		}		
-		const result = arg.getResult();
-        if (PRIMITIVE_TO_WRAPPER.has(clazz)) {
-            return PRIMITIVE_TO_WRAPPER.get(clazz)(result);
         }
-        else if (result instanceof clazz) {
+        const result = arg.getResult();
+        if (clazz == null) {
             return result;
         }
+        else if (PRIMITIVE_TO_WRAPPER.has(clazz)) {
+            return PRIMITIVE_TO_WRAPPER.get(clazz)(result);
+        }
         else {
-            throw new Error("Invail Type");
+            try {
+                if (result instanceof clazz)
+                    return result;
+            }
+            catch (ignore) {
+                throw new Error("Invail Type: " + clazz.toString());
+            }
         }
     }
     equals(o) {

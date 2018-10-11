@@ -60,16 +60,15 @@ class StringReader {
     }
     readInt() {
         let start = this.cursor;
-        while ((this.canRead() && StringReader.isAllowedNumber(this.peek()))) {
+        while (this.canRead() && StringReader.isAllowedNumber(this.peek())) {
             this.skip();
-		}
-		
+        }
         let number = this.string.substring(start, this.cursor);
         if (number.length === 0) {
             throw CommandSyntaxException_1.default.BUILT_IN_EXCEPTIONS.readerExpectedInt().createWithContext(this);
         }
         const result = parseInt(number);
-        if (isNaN(result)) {
+        if (isNaN(result) || result !== parseFloat(number)) {
             this.cursor = start;
             throw CommandSyntaxException_1.default.BUILT_IN_EXCEPTIONS.readerInvalidInt().createWithContext(this, number);
         }
@@ -86,7 +85,9 @@ class StringReader {
             throw CommandSyntaxException_1.default.BUILT_IN_EXCEPTIONS.readerExpectedFloat().createWithContext(this);
         }
         const result = parseFloat(number);
-        if (isNaN(result)) {
+        const strictParseFloatTest = parseFloat(number.substring(result.toString().length, this.cursor));
+        if (isNaN(result) || (!isNaN(strictParseFloatTest) &&
+            strictParseFloatTest !== 0)) {
             this.cursor = start;
             throw CommandSyntaxException_1.default.BUILT_IN_EXCEPTIONS.readerInvalidFloat().createWithContext(this, number);
         }

@@ -13,12 +13,11 @@ class BlockPos {
 		return this;
 	}
 	listSuggestions(context, builder) {
-		return Promise.resolve(Suggestions.empty());
+		return Suggestions.empty();
 	}
 	getExamples() {
 		return [
-			"1 2 3",
-			"~ ~-1 ~" // Unsupported
+			"1 2 3"
 		]
 	}
 }
@@ -30,7 +29,6 @@ dispatcher.register(
 		argument("pos1", new BlockPos()).then(
 			argument("pos2", new BlockPos()).then(
 				argument("block", string()).executes(context => {
-					console.log("fill")
 					console.log(context.getArgument("pos1", BlockPos))
 					console.log(context.getArgument("pos2", BlockPos))
 					console.log(context.getArgument("block", /*String*/ 3))
@@ -42,12 +40,8 @@ dispatcher.register(
 )
 
 const parsedCommand = dispatcher.parse("fill 3 4 5 10 11 12 air", {})
-
 try {
 	dispatcher.execute(parsedCommand);
 } catch (ex) {
-	if (ex.hasOwnProperty('getMessage')) 
-		console.error(ex.getMessage());
-	else 
-		console.error(ex);
+	console.error(ex.getMessage());
 }
