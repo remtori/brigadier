@@ -19,7 +19,6 @@ const SuggestionsBuilder_1 = __importDefault(require("./suggestion/SuggestionsBu
 const RootCommandNode_1 = __importDefault(require("./tree/RootCommandNode"));
 const StringReader_1 = __importDefault(require("./StringReader"));
 const ARGUMENT_SEPARATOR = " ";
-const ARGUMENT_SEPARATOR_CHAR = ' ';
 const USAGE_OPTIONAL_OPEN = "[";
 const USAGE_OPTIONAL_CLOSE = "]";
 const USAGE_REQUIRED_OPEN = "(";
@@ -104,7 +103,7 @@ class CommandDispatcher {
                 else if (context.getCommand() != null) {
                     foundCommand = true;
                     try {
-                        let value = context.getCommand().run(context);
+                        let value = context.getCommand()(context);
                         result += value;
                         this.consumer.onCommandComplete(context, true, value);
                         successfulForks++;
@@ -142,13 +141,9 @@ class CommandDispatcher {
             let context = contextSoFar.copy();
             let reader = new StringReader_1.default(originalReader);
             try {
-                //try {
                 child.parse(reader, context);
-                // } catch (ex) {
-                // 	throw CommandSyntaxException.BUILT_IN_EXCEPTIONS.dispatcherParseException().createWithContext(reader, ex.getMessage());
-                // }
                 if (reader.canRead())
-                    if (reader.peek() != ARGUMENT_SEPARATOR_CHAR)
+                    if (reader.peek() != ARGUMENT_SEPARATOR)
                         throw CommandSyntaxException_1.default.BUILT_IN_EXCEPTIONS.dispatcherExpectedArgumentSeparator().createWithContext(reader);
             }
             catch (ex) {
