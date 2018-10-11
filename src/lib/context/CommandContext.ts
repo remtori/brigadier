@@ -6,6 +6,7 @@ import CommandNode from "../tree/CommandNode"
 import StringRange from "./StringRange"
 import ParsedArgument from "./ParsedArgument"
 import ParsedCommandNode from "./ParsedCommandNode"
+import ArgumentType from "../arguments/ArgumentType"
 
 const PRIMITIVE_TO_WRAPPER = new Map<Primitive, Function>();
 PRIMITIVE_TO_WRAPPER.set(Primitive.Int, v => parseInt(v));
@@ -66,7 +67,7 @@ export default class CommandContext<S> {
         return this.source;
     }
 
-    public getArgument(name: string, type: Primitive): any {
+    public getArgument(name: string, clazz: any): any {
         const arg: ParsedArgument<S, any> = this.args.get(name);
 
         if (arg == null) {
@@ -74,9 +75,11 @@ export default class CommandContext<S> {
         }
 
         const result = arg.getResult();
-        if (PRIMITIVE_TO_WRAPPER.has(type)) {
-            return PRIMITIVE_TO_WRAPPER.get(type)(result);
-        } else {
+        if (PRIMITIVE_TO_WRAPPER.has(clazz)) {
+            return PRIMITIVE_TO_WRAPPER.get(clazz)(result);
+		} else if (result.constructor === clazz.constructor) {
+			return result;
+		} else {
             throw new Error("Invail Type");
         }
     }

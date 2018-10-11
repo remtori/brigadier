@@ -2,10 +2,14 @@
 // Project: Brigadier
 // Definitions by: Remtori <https://github.com/Remtori>
 
-import CommandContext from "./lib/context/CommandContext";
-
+declare const enum Primitive {
+    Int, Float, Boolean, String
+}
 declare interface Command<S> {
     (context: CommandContext<S>): number;
+}
+declare interface ResultConsumer<S> {    
+    onCommandComplete(context: CommandContext<S>, success: boolean, result: number): void;
 }
 declare interface SingleRedirectModifier<S> {
     apply(context: CommandContext<S>): S;
@@ -86,15 +90,305 @@ declare abstract class CommandNode<S> {
 	isFork(): boolean;
 	abstract getExamples(): Iterable<string>;
 }
-export declare function literal<S>(name: string): LiteralArgumentBuilder<S>;
+declare class LiteralMessage implements Message {
+	constructor(str: string);
+	getString(): string;
+	toString(): string;
+}
+declare class CommandSyntaxException extends Error {
+	static CONTEXT_AMOUNT: number;
+	static ENABLE_COMMAND_STACK_TRACES: boolean;
+	static BUILT_IN_EXCEPTIONS;	
+	getMessage(): string;
+	getRawMessage(): Message;
+	getContext(): string;
+	getType(): CommandExceptionType;
+	getInput(): string;
+	getCursor(): number;
+}
+declare class Dynamic2CommandExceptionType implements CommandExceptionType {
+	create(a: Object, b: Object): CommandSyntaxException;
+	createWithContext(reader: ImmutableStringReader, a: Object, b: Object): CommandSyntaxException;
+}
+declare class DynamicCommandExceptionType implements CommandExceptionType {
+	create(arg: Object): CommandSyntaxException;
+	createWithContext(reader: ImmutableStringReader, arg: Object): CommandSyntaxException;
+}
+declare class SimpleCommandExceptionType implements CommandExceptionType {
+	private message;
+	constructor(message: Message);
+	create(): CommandSyntaxException;
+	createWithContext(reader: ImmutableStringReader): CommandSyntaxException;
+	toString(): string;
+}
+declare class BuiltInExceptions {
+	private static FLOAT_TOO_SMALL;
+	private static FLOAT_TOO_BIG;
+	private static INTEGER_TOO_SMALL;
+	private static INTEGER_TOO_BIG;
+	private static LITERAL_INCORRECT;
+	private static READER_EXPECTED_START_OF_QUOTE;
+	private static READER_EXPECTED_END_OF_QUOTE;
+	private static READER_INVALID_ESCAPE;
+	private static READER_INVALID_BOOL;
+	private static READER_INVALID_INT;
+	private static READER_EXPECTED_INT;
+	private static READER_INVALID_FLOAT;
+	private static READER_EXPECTED_FLOAT;
+	private static READER_EXPECTED_BOOL;
+	private static READER_EXPECTED_SYMBOL;
+	private static DISPATCHER_UNKNOWN_COMMAND;
+	private static DISPATCHER_UNKNOWN_ARGUMENT;
+	private static DISPATCHER_EXPECTED_ARGUMENT_SEPARATOR;
+	private static DISPATCHER_PARSE_EXCEPTION;
+}
+declare class StringReader implements ImmutableStringReader {
+	getString(): string;
+	setCursor(cursor: number): void;
+	getRemainingLength(): number;
+	getTotalLength(): number;
+	getCursor(): number;
+	getRead(): string;
+	getRemaining(): string;
+	canRead(length?: number): boolean;
+	peek(offset?: number): string;
+	read(): string;
+	skip(): void;
+	static isAllowedNumber(c: string): boolean;
+	skipWhitespace(): void;
+	readInt(): number;
+	readFloat(): number;
+	static isAllowedInUnquotedString(c: string): boolean;
+	readUnquotedString(): string;
+	readQuotedString(): string;
+	readString(): string;
+	readBoolean(): boolean;
+	expect(c: string): void;
+}
+declare class StringRange {
+	static at(pos: number): StringRange;
+	static between(start: number, end: number): StringRange;
+	static encompassing(a: StringRange, b: StringRange): StringRange;
+	getStart(): number;
+	getEnd(): number;
+	get(str: ImmutableStringReader | string): string;
+	isEmpty(): boolean;
+	getLength(): number;
+	equals(o: any): boolean;
+	toString(): string;
+}
+declare class Suggestion {
+	getRange(): StringRange;
+	getText(): string;
+	getTooltip(): Message;
+	apply(input: string): string;
+	equals(o: any): boolean;
+	toString(): String;
+	compareTo(o: Suggestion): number;
+	compareToIgnoreCase(b: Suggestion): number;
+	expand(command: string, range: StringRange): Suggestion;
+}
+declare class Suggestions {
+	getRange(): StringRange;
+	getList(): Array<Suggestion>;
+	isEmpty(): boolean;
+	equals(o: any): boolean;
+	toString(): String;
+	static empty(): Promise<Suggestions>;
+	static merge(command: string, input: Array<Suggestions>): Suggestions;
+	static create(command: string, suggestions: Array<Suggestion>): Suggestions;
+}
+declare class IntegerSuggestion extends Suggestion {
+	getValue(): number;
+	equals(o: any): boolean;
+	toString(): String;
+	compareTo(o: Suggestion): number;
+	compareToIgnoreCase(b: Suggestion): number;
+}
+declare class SuggestionsBuilder {
+	getInput(): String;
+	getStart(): number;
+	getRemaining(): string;
+	build(): Suggestions;
+	buildPromise(): Promise<Suggestions>;
+	suggest(text: string | number, tooltip?: Message): SuggestionsBuilder;
+	add(other: SuggestionsBuilder): SuggestionsBuilder;
+	createOffset(start: number): SuggestionsBuilder;
+	restart(): SuggestionsBuilder;
+}
+declare class RootCommandNode<S> extends CommandNode<S> {
+	getNodeType(): string;
+	getName(): string;
+	getUsageText(): string;
+	parse(reader: StringReader, contextBuilder: CommandContextBuilder<S>): void;
+	listSuggestions(context: CommandContext<S>, builder: SuggestionsBuilder): Promise<Suggestions>;
+	isValidInput(input: String): boolean;
+	equals(o: any): boolean;
+	createBuilder(): ArgumentBuilder<S, any>;
+	getSortedKey(): string;
+	getExamples(): IterableIterator<string>;
+	toString(): string;
+}
+declare class ParsedArgument<S, T> {
+	constructor(start: number, end: number, result: T);
+	getRange(): StringRange;
+	getResult(): T;
+	equals(o: any): boolean;
+}
+declare class ParsedCommandNode<S> {
+	constructor(node: CommandNode<S>, range: StringRange);
+	getNode(): CommandNode<S>;
+	getRange(): StringRange;
+	toString(): String;
+	equals(o: any): boolean;
+}
+declare class CommandContext<S> {
+	constructor(source: S, input: string, args: Map<String, ParsedArgument<S, any>>, command: Command<S>, rootNode: CommandNode<S>, nodes: Array<ParsedCommandNode<S>>, range: StringRange, child: CommandContext<S>, modifier: RedirectModifier<S>, forks: boolean);
+	copyFor(source: S): CommandContext<S>;
+	getChild(): CommandContext<S>;
+	getLastChild(): CommandContext<S>;
+	getCommand(): Command<S>;
+	getSource(): S;
+	getArgument(name: string, clazz: any): any;
+	equals(o: any): boolean;
+	getRedirectModifier(): RedirectModifier<S>;
+	getRange(): StringRange;
+	getInput(): string;
+	getRootNode(): CommandNode<S>;
+	getNodes(): Array<ParsedCommandNode<S>>;
+	hasNodes(): boolean;
+	isForked(): boolean;
+}
+declare class SuggestionContext<S> {
+	constructor(parent: CommandNode<S>, startPos: number);
+}
+declare class CommandContextBuilder<S> {
+	constructor(dispatcher: CommandDispatcher<S>, source: S, rootNode: CommandNode<S>, start: number);
+	withSource(source: S): CommandContextBuilder<S>;
+	getSource(): S;
+	getRootNode(): CommandNode<S>;
+	withArgument(name: String, argument: ParsedArgument<S, any>): CommandContextBuilder<S>;
+	getArguments(): Map<String, ParsedArgument<S, any>>;
+	withCommand(command: Command<S>): CommandContextBuilder<S>;
+	withNode(node: CommandNode<S>, range: StringRange): CommandContextBuilder<S>;
+	copy(): CommandContextBuilder<S>;
+	withChild(child: CommandContextBuilder<S>): CommandContextBuilder<S>;
+	getChild(): CommandContextBuilder<S>;
+	getLastChild(): CommandContextBuilder<S>;
+	getCommand(): Command<S>;
+	getNodes(): Array<ParsedCommandNode<S>>;
+	build(input: string): CommandContext<S>;
+	getDispatcher(): CommandDispatcher<S>;
+	getRange(): StringRange;
+	findSuggestionContext(cursor: number): SuggestionContext<S>;
+}
+declare class ParseResults<S> {
+	constructor(context: CommandContextBuilder<S>, reader: ImmutableStringReader, exceptions: Map<CommandNode<S>, CommandSyntaxException>);
+	getContext(): CommandContextBuilder<S>;
+	getReader(): ImmutableStringReader;
+	getExceptions(): Map<CommandNode<S>, CommandSyntaxException>;
+}
+declare interface ResultConsumer<S> {
+    onCommandComplete(context: CommandContext<S>, success: boolean, result: number): void;
+}
+declare class LiteralCommandNode<S> extends CommandNode<S> {
+	constructor(literal: string, command: Command<S>, requirement: Predicate<S>, redirect: CommandNode<S>, modifier: RedirectModifier<S>, forks: boolean);
+	getNodeType(): string;
+	getLiteral(): string;
+	getName(): string;
+	parse(reader: StringReader, contextBuilder: CommandContextBuilder<S>): void;
+	listSuggestions(context: CommandContext<S>, builder: SuggestionsBuilder): Promise<Suggestions>;
+	isValidInput(input: string): boolean;
+	equals(o: any): boolean;
+	getUsageText(): string;
+	createBuilder(): LiteralArgumentBuilder<S>;
+	getSortedKey(): string;
+	getExamples(): IterableIterator<string>;
+	toString(): string;
+}
+declare class LiteralArgumentBuilder<S> extends ArgumentBuilder<S, LiteralArgumentBuilder<S>> {
+	constructor(literal: string);
+	getThis(): LiteralArgumentBuilder<S>;
+	getLiteral(): string;
+	build(): LiteralCommandNode<S>;
+}
+declare class BoolArgumentType implements ArgumentType<boolean> {
+	static getBool(context: CommandContext<any>, name: string): boolean;
+	parse(reader: StringReader): boolean;
+	listSuggestions(context: CommandContext<any>, builder: SuggestionsBuilder): Promise<Suggestions>;
+	getExamples(): IterableIterator<string>;
+}
+declare class IntegerArgumentType implements ArgumentType<number> {	
+	static getInteger(context: CommandContext<any>, name: string): number;
+	getMinimum(): number;
+	getMaximum(): number;
+	parse(reader: StringReader): number;
+	equals(o: any): boolean;
+	toString(): string;
+	listSuggestions(context: CommandContext<any>, builder: SuggestionsBuilder): Promise<Suggestions>;
+	getExamples(): IterableIterator<string>;
+}
+declare class FloatArgumentType implements ArgumentType<number> {	    
+	static getFloat(context: CommandContext<any>, name: string): number;
+	getMinimum(): number;
+	getMaximum(): number;
+	parse(reader: StringReader): number;
+	equals(o: any): boolean;
+	toString(): string;
+	listSuggestions(context: CommandContext<any>, builder: SuggestionsBuilder): Promise<Suggestions>;
+	getExamples(): IterableIterator<string>;
+}
+declare enum StringType {
+	SINGLE_WORD = "words_with_underscores",
+	QUOTABLE_PHRASE = "\"quoted phrase\"",
+	GREEDY_PHRASE = "words with spaces"
+}
+declare class StringArgumentType implements ArgumentType<string> {	
+	static getString(context: CommandContext<any>, name: string): string;
+	getType(): StringType;
+	parse(reader: StringReader): string;
+	toString(): string;
+	listSuggestions(context: CommandContext<any>, builder: SuggestionsBuilder): Promise<Suggestions>;
+	getExamples(): IterableIterator<string>;
+	static escapeIfRequired(input: string): String;
+	private static escape;
+}
+declare class ArgumentCommandNode<S, T> extends CommandNode<S> {
+	constructor(name: string, type: ArgumentType<T>, command: Command<S>, requirement: Predicate<S>, redirect: CommandNode<S>, modifier: RedirectModifier<S>, forks: boolean, customSuggestions: SuggestionProvider<S>);
+	getNodeType(): string;
+	getType(): ArgumentType<T>;
+	getName(): string;
+	getUsageText(): string;
+	getCustomSuggestions(): SuggestionProvider<S>;
+	parse(reader: StringReader, contextBuilder: CommandContextBuilder<S>): void;
+	listSuggestions(context: CommandContext<S>, builder: SuggestionsBuilder): Promise<Suggestions>;
+	createBuilder(): RequiredArgumentBuilder<S, T>;
+	isValidInput(input: string): boolean;
+	equals(o: any): boolean;
+	getSortedKey(): string;
+	getExamples(): IterableIterator<string>;
+	toString(): string;
+}
+declare class RequiredArgumentBuilder<S, T> extends ArgumentBuilder<S, RequiredArgumentBuilder<S, T>> {
+	private name;
+	private type;
+	private suggestionsProvider;
+	private constructor();	
+	suggests(provider: SuggestionProvider<S>): RequiredArgumentBuilder<S, T>;
+	getSuggestionsProvider(): SuggestionProvider<S>;
+	getThis(): RequiredArgumentBuilder<S, T>;
+	getType(): ArgumentType<T>;
+	getName(): string;
+	build(): ArgumentCommandNode<S, T>;
+}
 export function bool(): BoolArgumentType;
 export function integer(min?: number, max?: number): IntegerArgumentType;
 export function float(min?: number, max?: number): FloatArgumentType;
 export declare function word(): StringArgumentType;
 export declare function string(): StringArgumentType;
 export declare function greedyString(): StringArgumentType;
+export declare function literal<S>(name: string): LiteralArgumentBuilder<S>;
 export declare function argument<S, T>(name: string, type: ArgumentType<T>): RequiredArgumentBuilder<S, T>;
-
 /**
  * The core command dispatcher, for registering, parsing, and executing commands.
  *

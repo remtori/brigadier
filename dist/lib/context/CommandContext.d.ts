@@ -1,4 +1,3 @@
-import Primitive from "../Primitive";
 import Command from "../Command";
 import RedirectModifier from "../RedirectModifier";
 import CommandNode from "../tree/CommandNode";
@@ -22,7 +21,7 @@ export default class CommandContext<S> {
     getLastChild(): CommandContext<S>;
     getCommand(): Command<S>;
     getSource(): S;
-    getArgument(name: string, type: Primitive): any;
+    getArgument(name: string, clazz: any): any;
     equals(o: any): boolean;
     getRedirectModifier(): RedirectModifier<S>;
     getRange(): StringRange;

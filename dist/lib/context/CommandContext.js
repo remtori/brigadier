@@ -43,14 +43,17 @@ class CommandContext {
     getSource() {
         return this.source;
     }
-    getArgument(name, type) {
+    getArgument(name, clazz) {
         const arg = this.args.get(name);
         if (arg == null) {
             throw new Error("No such argument '" + name + "' exists on this command");
         }
         const result = arg.getResult();
-        if (PRIMITIVE_TO_WRAPPER.has(type)) {
-            return PRIMITIVE_TO_WRAPPER.get(type)(result);
+        if (PRIMITIVE_TO_WRAPPER.has(clazz)) {
+            return PRIMITIVE_TO_WRAPPER.get(clazz)(result);
+        }
+        else if (result.constructor === clazz.constructor) {
+            return result;
         }
         else {
             throw new Error("Invail Type");

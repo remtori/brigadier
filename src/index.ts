@@ -18,7 +18,6 @@ import SimpleCommandExceptionType from "./lib/exceptions/SimpleCommandExceptionT
 import Suggestion from "./lib/suggestion/Suggestion"
 import Suggestions from "./lib/suggestion/Suggestions"
 import SuggestionsBuilder from "./lib/suggestion/SuggestionsBuilder";
-import CommandNode from "./lib/tree/CommandNode"
 import ArgumentCommandNode from "./lib/tree/ArgumentCommandNode"
 import LiteralCommandNode from "./lib/tree/LiteralCommandNode"
 import RootCommandNode from "./lib/tree/RootCommandNode"
@@ -47,7 +46,6 @@ module.exports = {
 	Suggestion,
 	Suggestions,
 	SuggestionsBuilder,
-	CommandNode,
 	ArgumentCommandNode,
 	LiteralCommandNode,
 	RootCommandNode
