@@ -4,8 +4,10 @@ import Suggestion from "../src/lib/suggestion/Suggestion"
 import CommandDispatcher from "../src/lib/CommandDispatcher"
 import { literal } from "../src/lib/builder/LiteralArgumentBuilder"
 import { argument } from "../src/lib/builder/RequiredArgumentBuilder"
-import { Type } from "../src/lib/arguments/ArgumentType"
+import { DefaultType } from "../src/lib/arguments/ArgumentType"
 import StringReader from "../src/lib/StringReader";
+
+const { integer, word } = DefaultType
 
 describe("Command Suggestion Test", () => {
 	let subject: CommandDispatcher<Object>;
@@ -208,7 +210,7 @@ describe("Command Suggestion Test", () => {
                 .then(
                     literal("loop")
                         .then(
-                            argument("loop", Type.integer())
+                            argument("loop", integer())
                                 .redirect(loop)
                         )
                 )
@@ -227,14 +229,14 @@ describe("Command Suggestion Test", () => {
                 .then(
                     literal("as")
                         .then(
-                            argument("name", Type.word())
+                            argument("name", word())
                                 .redirect(execute)
                         )
                 )
                 .then(
                     literal("store")
                         .then(
-                            argument("name", Type.word())
+                            argument("name", word())
                                 .redirect(execute)
                         )
                 )
@@ -262,7 +264,7 @@ describe("Command Suggestion Test", () => {
                 .then(
                     literal("store")
                         .then(
-                            argument("name", Type.word())
+                            argument("name", word())
                                 .redirect(execute)
                         )
                 )

@@ -1,10 +1,10 @@
 import { assert, expect } from 'chai'
 import testEquality from "../utils/testEquality"
 import CommandSyntaxException from "../../src/lib/exceptions/CommandSyntaxException"
-import { Type } from "../../src/lib/arguments/ArgumentType"
+import { DefaultType } from "../../src/lib/arguments/ArgumentType"
 import StringReader from '../../src/lib/StringReader';
 
-const {integer} = Type;
+const { integer } = DefaultType;
 
 describe('integerumentTypeTest', () => {
 	let type;

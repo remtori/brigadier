@@ -4,9 +4,9 @@ import CommandNode from "../../src/lib/tree/CommandNode"
 import ArgumentBuilder from "../../src/lib/builder/ArgumentBuilder";
 import { argument } from "../../src/lib/builder/RequiredArgumentBuilder"
 import { literal } from "../../src/lib/builder/LiteralArgumentBuilder"
-import { Type } from "../../src/lib/arguments/ArgumentType"
+import { DefaultType } from "../../src/lib/arguments/ArgumentType"
 
-const { integer } = Type;
+const { integer } = DefaultType;
 
 class TestableArgumentBuilder<S> extends ArgumentBuilder<S, TestableArgumentBuilder<S>> {
 	public getThis(): TestableArgumentBuilder<S> {

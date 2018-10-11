@@ -1,6 +1,6 @@
 import { assert } from "chai"
 import testEquality from "../utils/testEquality"
-import { Type } from "../../src/lib/arguments/ArgumentType"
+import { DefaultType } from "../../src/lib/arguments/ArgumentType"
 import Command from "../../src/lib/Command"
 import CommandNode from "../../src/lib/tree/CommandNode"
 import RootCommandNode from "../../src/lib/tree/RootCommandNode"
@@ -11,7 +11,7 @@ import RequiredArgumentBuilder, { argument } from "../../src/lib/builder/Require
 import SuggestionsBuilder from "../../src/lib/suggestion/SuggestionsBuilder"
 import StringReader from "../../src/lib/StringReader"
 
-const { integer	} = Type;
+const { integer	} = DefaultType;
 
 describe('ArgumentCommandNodeTest', () => {
 	const command: Command<Object> = () => 0;

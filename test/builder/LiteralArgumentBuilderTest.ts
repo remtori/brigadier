@@ -2,9 +2,9 @@ import { assert, expect } from 'chai'
 import Command from "../../src/lib/Command"
 import LiteralArgumentBuilder from "../../src/lib/builder/LiteralArgumentBuilder"
 import { argument } from "../../src/lib/builder/RequiredArgumentBuilder"
-import { Type } from "../../src/lib/arguments/ArgumentType"
+import { DefaultType } from "../../src/lib/arguments/ArgumentType"
 
-const { integer } = Type;
+const { integer } = DefaultType;
 
 describe('LiteralArgumentBuilderTest', () => {
 

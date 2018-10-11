@@ -1,10 +1,10 @@
 import { assert } from 'chai'
 import { mock, instance, when, verify, anything } from 'ts-mockito'
-import { Type } from "../../src/lib/arguments/ArgumentType"
+import { DefaultType } from "../../src/lib/arguments/ArgumentType"
 import StringReader from '../../src/lib/StringReader';
 import StringArgumentType from "../../src/lib/arguments/StringArgumentType"
 
-const { word, string, greedyString } = Type
+const { word, string, greedyString } = DefaultType
 const { escapeIfRequired } = StringArgumentType
 
 describe('StringArgumentTypeTest', () => {

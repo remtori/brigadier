@@ -8,7 +8,7 @@ import IntegerArgumentType from "./IntegerArgumentType"
 import FloatArgumentType from "./FloatArgumentType"
 import StringArgumentType from "./StringArgumentType"
 
-export const Type = {
+export const DefaultType = {
 	bool: BoolArgumentType.bool,
 	integer: IntegerArgumentType.integer,
 	float: FloatArgumentType.float,

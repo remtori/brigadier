@@ -1,10 +1,10 @@
 import { assert } from 'chai'
 import { mock, instance, when, verify } from 'ts-mockito'
-import { Type } from "../../src/lib/arguments/ArgumentType"
+import { DefaultType } from "../../src/lib/arguments/ArgumentType"
 import StringReader from "../../src/lib/StringReader"
 
 describe('BoolArgumentTypeTest', () => {
-	const type = Type.bool();
+	const type = DefaultType.bool();
 
 	it('parse', () => {		
 		const mockedReader = mock(StringReader);		

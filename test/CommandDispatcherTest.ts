@@ -5,8 +5,10 @@ import CommandDispatcher from "../src/lib/CommandDispatcher"
 import CommandSyntaxException from "../src/lib/exceptions/CommandSyntaxException"
 import { literal } from "../src/lib/builder/LiteralArgumentBuilder"
 import { argument } from "../src/lib/builder/RequiredArgumentBuilder"
-import { Type } from "../src/lib/arguments/ArgumentType"
+import { DefaultType } from "../src/lib/arguments/ArgumentType"
 import StringReader from "../src/lib/StringReader";
+
+const { integer } = DefaultType
 
 interface MockedCommand<S> extends Command<S> {
 	execHistory: object;
@@ -194,7 +196,7 @@ describe('CommandDispatcherTest', () => {
     })
 
     it('testParseIncompleteArgument', () => {		
-        subject.register(literal("foo").then(argument("bar", Type.integer()).executes(command)));
+        subject.register(literal("foo").then(argument("bar", integer()).executes(command)));
 
         const parse = subject.parse("foo ", source);
         assert.equal(parse.getReader().getRemaining(), " ");
@@ -208,13 +210,13 @@ describe('CommandDispatcherTest', () => {
         subject.register(
             literal("test")
                 .then(
-                    argument("incorrect", Type.integer())
+                    argument("incorrect", integer())
                         .executes(command)
                 )
                 .then(
-                    argument("right", Type.integer())
+                    argument("right", integer())
                         .then(
-                            argument("sub", Type.integer())
+                            argument("sub", integer())
                                 .executes(subCommand)
                         )
                 )
@@ -232,13 +234,13 @@ describe('CommandDispatcherTest', () => {
         const real = subject.register(
             literal("test")
                 .then(
-                    argument("incorrect", Type.integer())
+                    argument("incorrect", integer())
                         .executes(command)
                 )
                 .then(
-                    argument("right", Type.integer())
+                    argument("right", integer())
                         .then(
-                            argument("sub", Type.integer())
+                            argument("sub", integer())
                                 .executes(subCommand)
                         )
                 )
@@ -327,7 +329,7 @@ describe('CommandDispatcherTest', () => {
 
     it('testExecuteOrphanedSubcommand', () => {		
         subject.register(literal("foo").then(
-            argument("bar", Type.integer())
+            argument("bar", integer())
         ).executes(command));
 
         try {
@@ -351,7 +353,7 @@ describe('CommandDispatcherTest', () => {
     })
 
     it('parse_noSpaceSeparator', () => {		
-        subject.register(literal("foo").then(argument("bar", Type.integer()).executes(command)));
+        subject.register(literal("foo").then(argument("bar", integer()).executes(command)));
 
         try {
             subject.execute("foo$", source);
@@ -364,7 +366,7 @@ describe('CommandDispatcherTest', () => {
 
     it('testExecuteInvalidSubcommand', () => {		
         subject.register(literal("foo").then(
-            argument("bar", Type.integer())
+            argument("bar", integer())
         ).executes(command));
 
         try {
