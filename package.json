@@ -1,9 +1,14 @@
 {
   "name": "node-brigadier",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "A javascript version of Mojangs Brigadier library",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
+  "homepage": "http://github.com/remtori/brigadier",
+  "repository": {
+	  "type": "git",
+	  "url": "git://github.com/remtori/brigadier.git"
+  },
   "keywords": [
 	  "command"	  
   ],
