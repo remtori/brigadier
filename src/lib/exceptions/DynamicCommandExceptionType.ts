@@ -7,7 +7,8 @@ export default class DynamicCommandExceptionType implements CommandExceptionType
     private fn: Function;
     
     public constructor(fn: Function) {
-        this.fn = fn;
+		this.fn = fn;
+		Error.captureStackTrace(this, DynamicCommandExceptionType)
     }
     
     public create(arg: Object): CommandSyntaxException {

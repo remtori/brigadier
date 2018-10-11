@@ -7,6 +7,7 @@ const CommandSyntaxException_1 = __importDefault(require("./CommandSyntaxExcepti
 class DynamicCommandExceptionType {
     constructor(fn) {
         this.fn = fn;
+        Error.captureStackTrace(this, DynamicCommandExceptionType);
     }
     create(arg) {
         return new CommandSyntaxException_1.default(this, this.fn(arg));

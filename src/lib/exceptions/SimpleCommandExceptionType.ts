@@ -8,7 +8,8 @@ export default class SimpleCommandExceptionType implements CommandExceptionType 
     private message: Message;
     
     public constructor (message: Message) {
-        this.message = message;
+		this.message = message;
+		Error.captureStackTrace(this, SimpleCommandExceptionType)
     }
     
     public create(): CommandSyntaxException {

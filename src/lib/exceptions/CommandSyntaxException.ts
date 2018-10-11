@@ -6,7 +6,6 @@ import CommandExceptionType from "./CommandExceptionType"
 export default class CommandSyntaxException extends Error {
     
     public static CONTEXT_AMOUNT = 10;    
-    public static ENABLE_COMMAND_STACK_TRACES = true;
     public static BUILT_IN_EXCEPTIONS: BuiltInExceptionProvider = new BuiltInExceptions();
     
     private type: CommandExceptionType;    
@@ -16,8 +15,7 @@ export default class CommandSyntaxException extends Error {
     
     public constructor (type: CommandExceptionType, message: Message, input: string = null, cursor = -1) {
 		super(message.getString());
-		if (CommandSyntaxException.ENABLE_COMMAND_STACK_TRACES) 
-			Error.captureStackTrace(this, CommandSyntaxException)
+		Error.captureStackTrace(this, CommandSyntaxException)
         this.type = type;
         this.__message = message;
         this.input = input;

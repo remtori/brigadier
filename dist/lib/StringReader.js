@@ -62,7 +62,8 @@ class StringReader {
         let start = this.cursor;
         while ((this.canRead() && StringReader.isAllowedNumber(this.peek()))) {
             this.skip();
-        }
+		}
+		
         let number = this.string.substring(start, this.cursor);
         if (number.length === 0) {
             throw CommandSyntaxException_1.default.BUILT_IN_EXCEPTIONS.readerExpectedInt().createWithContext(this);

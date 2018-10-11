@@ -26,8 +26,9 @@
   },
   "scripts": {
     "build": "tsc",
-    "test": "mocha --require ts-node/register test/**/*.ts",
-    "benchmark": "radargun test/benchmarks/*.js"
+	"test": "mocha --require ts-node/register test/**/*.ts",
+	"test-p": "mocha --require ts-node/register test/StringReaderTest.ts",
+	"benchmark": "radargun test/benchmarks/*.js"
   },
   "author": "Remtori",
   "license": "MIT"

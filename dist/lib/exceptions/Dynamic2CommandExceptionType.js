@@ -7,6 +7,7 @@ const CommandSyntaxException_1 = __importDefault(require("./CommandSyntaxExcepti
 class Dynamic2CommandExceptionType {
     constructor(fn) {
         this.fn = fn;
+        Error.captureStackTrace(this, Dynamic2CommandExceptionType);
     }
     create(a, b) {
         return new CommandSyntaxException_1.default(this, this.fn(a, b));

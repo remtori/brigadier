@@ -182,6 +182,7 @@ describe('StringReader Test', () => {
 	it('readQuotedString_noOpen', () => {		
 		try {
 			new StringReader("hello world\"").readQuotedString();
+			assert.fail();
 		} catch (ex) {
 			assert.equal(ex.getType(), CommandSyntaxException.BUILT_IN_EXCEPTIONS.readerExpectedStartOfQuote());
 			assert.equal(ex.getCursor(), 0);
@@ -191,6 +192,7 @@ describe('StringReader Test', () => {
 	it('readQuotedString_noClose', () => {		
 		try {
 			new StringReader("\"hello world").readQuotedString();
+			assert.fail();
 		} catch (ex) {
 			assert.equal(ex.getType(), CommandSyntaxException.BUILT_IN_EXCEPTIONS.readerExpectedEndOfQuote());
 			assert.equal(ex.getCursor(), 12);
@@ -200,6 +202,7 @@ describe('StringReader Test', () => {
 	it('readQuotedString_invalidEscape', () => {		
 		try {
 			new StringReader("\"hello\\nworld\"").readQuotedString();
+			assert.fail();
 		} catch (ex) {
 			assert.equal(ex.getType(), CommandSyntaxException.BUILT_IN_EXCEPTIONS.readerInvalidEscape());
 			assert.equal(ex.getCursor(), 7);
@@ -223,8 +226,9 @@ describe('StringReader Test', () => {
 	it('readInt_invalid', () => {		
 		try {
 			new StringReader("12.34").readInt();
+			assert.fail();
 		} catch (ex) {
-			assert.equal(ex.getType(), CommandSyntaxException.BUILT_IN_EXCEPTIONS.readerInvalidInt());
+			assert.deepEqual(ex.getType(), CommandSyntaxException.BUILT_IN_EXCEPTIONS.readerInvalidInt());
 			assert.equal(ex.getCursor(), 0);
 		}
 	})
@@ -232,8 +236,9 @@ describe('StringReader Test', () => {
 	it('readInt_none', () => {		
 		try {
 			new StringReader("").readInt();
+			assert.fail();
 		} catch (ex) {
-			assert.equal(ex.getType(), CommandSyntaxException.BUILT_IN_EXCEPTIONS.readerExpectedInt());
+			assert.deepEqual(ex.getType(), CommandSyntaxException.BUILT_IN_EXCEPTIONS.readerExpectedInt());
 			assert.equal(ex.getCursor(), 0);
 		}
 	})
@@ -276,6 +281,7 @@ describe('StringReader Test', () => {
 	it('readFloat_invalid', () => {		
 		try {
 			new StringReader("12.34.56").readFloat();
+			assert.fail();
 		} catch (ex) {
 			assert.equal(ex.getType(), CommandSyntaxException.BUILT_IN_EXCEPTIONS.readerInvalidFloat());
 			assert.equal(ex.getCursor(), 0);
@@ -285,6 +291,7 @@ describe('StringReader Test', () => {
 	it('readFloat_none', () => {		
 		try {
 			new StringReader("").readFloat();
+			assert.fail();
 		} catch (ex) {
 			assert.equal(ex.getType(), CommandSyntaxException.BUILT_IN_EXCEPTIONS.readerExpectedFloat());
 			assert.equal(ex.getCursor(), 0);

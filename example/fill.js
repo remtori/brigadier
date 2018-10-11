@@ -1,14 +1,10 @@
-import { CommandDispatcher, literal, argument, string, ArgumentType, StringReader, CommandContext, SuggestionsBuilder, Suggestions, Primitive } from "../dist"
+const { CommandDispatcher, literal, argument, string, Suggestions } = require("../dist")
 
-class BlockPos implements ArgumentType<BlockPos> {
-
-	public x: number;
-	public y: number;
-	public z: number;
-	constructor(x: number = 0, y: number = 0, z: number = 0) {
+class BlockPos {
+	constructor(x = 0, y = 0, z = 0) {
 		this.x = x; this.y = y; this.z = z;
 	}
-	parse(reader: StringReader) {
+	parse(reader) {
 		this.x = reader.readInt();
 		reader.skip();
 		this.y = reader.readInt();
@@ -16,7 +12,7 @@ class BlockPos implements ArgumentType<BlockPos> {
 		this.z = reader.readInt();
 		return this;
 	}
-	listSuggestions(context: CommandContext<Object>, builder: SuggestionsBuilder) {
+	listSuggestions(context, builder) {
 		return Promise.resolve(Suggestions.empty());
 	}
 	getExamples() {
@@ -37,9 +33,9 @@ dispatcher.register(
 					console.log("fill")
 					console.log(context.getArgument("pos1", BlockPos))
 					console.log(context.getArgument("pos2", BlockPos))
-					console.log(context.getArgument("block", Primitive.String))
+					console.log(context.getArgument("block", /*String*/ 3))
 					return 0;
-				}).build()
+				})
 			)
 		)
 	)
@@ -50,5 +46,8 @@ const parsedCommand = dispatcher.parse("fill 3 4 5 10 11 12 air", {})
 try {
 	dispatcher.execute(parsedCommand);
 } catch (ex) {
-	console.error(ex.getMessage());
+	if (ex.hasOwnProperty('getMessage')) 
+		console.error(ex.getMessage());
+	else 
+		console.error(ex);
 }

@@ -7,8 +7,7 @@ const BuiltInExceptions_1 = __importDefault(require("./BuiltInExceptions"));
 class CommandSyntaxException extends Error {
     constructor(type, message, input = null, cursor = -1) {
         super(message.getString());
-        if (CommandSyntaxException.ENABLE_COMMAND_STACK_TRACES)
-            Error.captureStackTrace(this, CommandSyntaxException);
+        Error.captureStackTrace(this, CommandSyntaxException);
         this.type = type;
         this.__message = message;
         this.input = input;
@@ -49,6 +48,5 @@ class CommandSyntaxException extends Error {
     }
 }
 CommandSyntaxException.CONTEXT_AMOUNT = 10;
-CommandSyntaxException.ENABLE_COMMAND_STACK_TRACES = true;
 CommandSyntaxException.BUILT_IN_EXCEPTIONS = new BuiltInExceptions_1.default();
 exports.default = CommandSyntaxException;

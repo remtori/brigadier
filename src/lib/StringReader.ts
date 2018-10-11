@@ -78,7 +78,7 @@ export default class StringReader implements ImmutableStringReader {
     
     public readInt(): number {
         let start = this.cursor;
-        while ((this.canRead() && StringReader.isAllowedNumber(this.peek()))) {
+        while (this.canRead() && StringReader.isAllowedNumber(this.peek())) {
             this.skip();
         }
         
@@ -88,7 +88,7 @@ export default class StringReader implements ImmutableStringReader {
         }
         
 		const result = parseInt(number);		
-		if (isNaN(result)) {
+		if (isNaN(result) || result !== parseFloat(number)) {
 			this.cursor = start;
 			throw CommandSyntaxException.BUILT_IN_EXCEPTIONS.readerInvalidInt().createWithContext(this, number);
 		} else 
@@ -107,7 +107,11 @@ export default class StringReader implements ImmutableStringReader {
         }
         
 		const result = parseFloat(number);
-		if (isNaN(result)) {
+		const strictParseFloatTest = parseFloat(number.substring(result.toString().length, this.cursor));
+		if (isNaN(result) || (
+			!isNaN(strictParseFloatTest) &&
+			strictParseFloatTest !== 0
+		)) {
 			this.cursor = start;
 			throw CommandSyntaxException.BUILT_IN_EXCEPTIONS.readerInvalidFloat().createWithContext(this, number);
 		} else 

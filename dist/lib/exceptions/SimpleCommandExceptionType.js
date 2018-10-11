@@ -7,6 +7,7 @@ const CommandSyntaxException_1 = __importDefault(require("./CommandSyntaxExcepti
 class SimpleCommandExceptionType {
     constructor(message) {
         this.message = message;
+        Error.captureStackTrace(this, SimpleCommandExceptionType);
     }
     create() {
         return new CommandSyntaxException_1.default(this, this.message);

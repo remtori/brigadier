@@ -3,7 +3,6 @@ import BuiltInExceptionProvider from "./BuiltInExceptionProvider";
 import CommandExceptionType from "./CommandExceptionType";
 export default class CommandSyntaxException extends Error {
     static CONTEXT_AMOUNT: number;
-    static ENABLE_COMMAND_STACK_TRACES: boolean;
     static BUILT_IN_EXCEPTIONS: BuiltInExceptionProvider;
     private type;
     private __message;
