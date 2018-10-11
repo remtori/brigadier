@@ -1,0 +1,30 @@
+{
+  "name": "node-brigadier",
+  "version": "0.0.1",
+  "description": "A Nodejs version of Mojangs Brigadier library",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "keywords": [
+	  "node",
+	  "command"	  
+  ],
+  "dependencies": {},
+  "devDependencies": {
+    "@types/chai": "^4.1.6",
+    "@types/mocha": "^5.2.5",
+    "@types/node": "^10.11.6",
+    "chai": "^4.2.0",
+    "mocha": "^5.2.0",
+    "radargun": "^1.0.1",
+    "ts-mockito": "^2.3.1",
+    "ts-node": "^7.0.1",
+    "typescript": "^3.1.1"
+  },
+  "scripts": {
+    "build": "tsc",
+    "test": "mocha --require ts-node/register test/**/*.ts",
+    "benchmark": "radargun test/benchmarks/*.js"
+  },
+  "author": "Remtori",
+  "license": "MIT"
+}

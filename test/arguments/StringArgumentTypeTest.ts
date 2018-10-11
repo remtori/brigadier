@@ -1,0 +1,61 @@
+import { assert } from 'chai'
+import { mock, instance, when, verify, anything } from 'ts-mockito'
+import { Type } from "../../src/lib/arguments/ArgumentType"
+import StringReader from '../../src/lib/StringReader';
+import StringArgumentType from "../../src/lib/arguments/StringArgumentType"
+
+const { word, string, greedyString } = Type
+const { escapeIfRequired } = StringArgumentType
+
+describe('StringArgumentTypeTest', () => {
+
+	it('testParseWord', () => {		
+		const mockedReader = mock(StringReader);
+		when(mockedReader.readUnquotedString()).thenReturn("hello");
+		const reader = instance(mockedReader)        
+
+		assert.equal(word().parse(reader), "hello");
+		
+        verify(mockedReader.readUnquotedString()).called();
+    })
+
+    it('testParseString', () => {		
+        const mockedReader = mock(StringReader);
+		when(mockedReader.readString()).thenReturn("hello world");
+		const reader = instance(mockedReader)
+
+        assert.equal(string().parse(reader), "hello world");
+        verify(mockedReader.readString()).called();
+    })
+
+    it('testParseGreedyString', () => {		
+        const reader = new StringReader("Hello world! This is a test.");
+        assert.equal(greedyString().parse(reader), "Hello world! This is a test.");
+        assert.equal(reader.canRead(), false);
+    })
+
+    it('testToString', () => {		
+        assert.equal(string() + "", "string()");
+    })
+
+    it('testEscapeIfRequired_notRequired', () => {		
+        assert.equal(escapeIfRequired("hello"), "hello");
+        assert.equal(escapeIfRequired(""), "");
+    })
+
+    it('testEscapeIfRequired_multipleWords', () => {		
+        assert.equal(escapeIfRequired("hello world"), "\"hello world\"");
+    })
+
+    it('testEscapeIfRequired_quote', () => {		
+        assert.equal(escapeIfRequired("hello \"world\"!"), "\"hello \\\"world\\\"!\"");
+    })
+
+    it('testEscapeIfRequired_escapes', () => {		
+        assert.equal(escapeIfRequired("\\"), "\"\\\\\"");
+    })
+
+    it('testEscapeIfRequired_singleQuote', () => {		
+        assert.equal(escapeIfRequired("\""), "\"\\\"\"");
+    })
+})
