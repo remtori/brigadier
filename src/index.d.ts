@@ -1,4 +1,4 @@
-// Type definitions for Brigadier 0.0.1
+// Type definitions for Node-Brigadier 0.0.1
 // Project: Node-Brigadier
 // Definitions by: Remtori <https://github.com/Remtori>
 

@@ -1,5 +1,5 @@
 {
-  "name": "brigadier",
+  "name": "node-brigadier",
   "version": "0.0.1",
   "description": "A javascript version of Mojangs Brigadier library",
   "main": "dist/index.js",
