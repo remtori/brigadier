@@ -1,11 +1,10 @@
 {
-  "name": "node-brigadier",
+  "name": "brigadier",
   "version": "0.0.1",
-  "description": "A Nodejs version of Mojangs Brigadier library",
+  "description": "A javascript version of Mojangs Brigadier library",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "keywords": [
-	  "node",
 	  "command"	  
   ],
   "dependencies": {},

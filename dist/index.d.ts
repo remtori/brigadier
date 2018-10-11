@@ -1,5 +1,5 @@
-// Type definitions for Brigadier 0.0.1
-// Project: Node-Brigadier
+// Type definitions for brigadier[0.0.1]
+// Project: Brigadier
 // Definitions by: Remtori <https://github.com/Remtori>
 
 declare enum Primitive {
