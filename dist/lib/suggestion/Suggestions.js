@@ -26,9 +26,6 @@ class Suggestions {
             return false;
         return this.range.equals(o.range) && isEqual_1.default(this.suggestions, o.suggestions);
     }
-    // public hashCode(): number {
-    //     return Objects.hash(this.range, this.suggestions);
-    // }
     toString() {
         return "Suggestions{" +
             "range=" + this.range +

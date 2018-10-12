@@ -19,9 +19,6 @@ class IntegerSuggestion extends Suggestion_1.default {
             return false;
         return this.value == o.value && super.equals(o);
     }
-    // public hashCode(): number {
-    //     return Objects.hash(super.hashCode(), this.value);
-    // }
     toString() {
         return "IntegerSuggestion{" +
             "value=" + this.value +

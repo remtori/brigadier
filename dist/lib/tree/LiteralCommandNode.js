@@ -71,11 +71,6 @@ class LiteralCommandNode extends CommandNode_1.default {
     getUsageText() {
         return this.literal;
     }
-    // public hashCode(): number {
-    //     let result = this.literal.hashCode();
-    //     result = ((31 * result) + super.hashCode());
-    //     return result;
-    // }
     createBuilder() {
         let builder = LiteralArgumentBuilder_1.default.literal(this.literal);
         builder.requires(this.getRequirement());

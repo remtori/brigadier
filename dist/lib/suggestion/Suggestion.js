@@ -40,9 +40,6 @@ class Suggestion {
             return false;
         return isEqual_1.default(this.range, o.range) && (this.text === o.text) && isEqual_1.default(this.tooltip, o.tooltip);
     }
-    // public hashCode(): number {
-    //     return Objects.hash(this.range, this.text, this.tooltip);
-    // }
     toString() {
         return "Suggestion{" +
             "range=" + this.range +

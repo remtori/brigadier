@@ -95,9 +95,6 @@ class CommandNode {
             return false;
         return true;
     }
-    // public hashCode(): number {
-    //     return 31 * this.children.hashCode() + (this.command != null ? this.command.hashCode() : 0);
-    // }
     getRequirement() {
         return this.requirement;
     }

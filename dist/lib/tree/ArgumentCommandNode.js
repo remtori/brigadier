@@ -78,11 +78,6 @@ class ArgumentCommandNode extends CommandNode_1.default {
             return false;
         return super.equals(o);
     }
-    // public hashCode(): number {
-    //     let result = this.name.hashCode();
-    //     result = 31 * result + this.type.hashCode();
-    //     return result;
-    // }
     getSortedKey() {
         return this.name;
     }

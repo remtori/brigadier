@@ -39,9 +39,6 @@ class StringRange {
             return false;
         return this.start === o.start && this.end == o.end;
     }
-    // public hashCode(): number {
-    //     return Objects.hash(start, end);
-    // }
     toString() {
         return "StringRange{" + "start=" + this.start + ", end=" + this.end + '}';
     }

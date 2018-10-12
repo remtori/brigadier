@@ -84,15 +84,6 @@ class CommandContext {
             return false;
         return true;
     }
-    // public int hashCode() {
-    //     int result = source.hashCode();
-    //     result = 31 * result + arguments.hashCode();
-    //     result = 31 * result + (command != null ? command.hashCode() : 0);
-    //     result = 31 * result + rootNode.hashCode();
-    //     result = 31 * result + nodes.hashCode();
-    //     result = 31 * result + (child != null ? child.hashCode() : 0);
-    //     return result;
-    // }
     getRedirectModifier() {
         return this.modifier;
     }

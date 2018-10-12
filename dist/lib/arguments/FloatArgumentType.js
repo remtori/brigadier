@@ -43,9 +43,6 @@ class FloatArgumentType {
             return false;
         return this.maximum == o.maximum && this.minimum == o.minimum;
     }
-    // public hashCode(): number {
-    //     return 31 * this.minimum + this.maximum;
-    // }
     toString() {
         if (this.minimum === -Infinity && this.maximum === Infinity) {
             return "float()";
