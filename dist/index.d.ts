@@ -97,8 +97,6 @@ declare class LiteralMessage implements Message {
 }
 declare class CommandSyntaxException extends Error {
 	static CONTEXT_AMOUNT: number;
-	static ENABLE_COMMAND_STACK_TRACES: boolean;
-	static BUILT_IN_EXCEPTIONS;	
 	getMessage(): string;
 	getRawMessage(): Message;
 	getContext(): string;
@@ -403,12 +401,7 @@ export declare class CommandDispatcher<S> {
      *
      * @param root the existing {@link RootCommandNode} to use as the basis for this tree
      */
-    public CommandDispatcher(root: RootCommandNode<S>)
-
-    /**
-     * Creates a new {@link CommandDispatcher} with an empty command tree.
-     */
-    public CommandDispatcher()
+    constructor(root?: RootCommandNode<S>)
 
     /**
      * Utility method for registering new commands.

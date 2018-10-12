@@ -50,7 +50,7 @@ export default class IntegerArgumentType implements ArgumentType<number> {
         return result;
     }
         
-    public equals(o): boolean {
+    public equals(o: object): boolean {
         if (this === o) return true;
         
         if (!(o instanceof  IntegerArgumentType)) return false;

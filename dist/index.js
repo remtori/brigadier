@@ -30,7 +30,6 @@ const SimpleCommandExceptionType_1 = __importDefault(require("./lib/exceptions/S
 const Suggestion_1 = __importDefault(require("./lib/suggestion/Suggestion"));
 const Suggestions_1 = __importDefault(require("./lib/suggestion/Suggestions"));
 const SuggestionsBuilder_1 = __importDefault(require("./lib/suggestion/SuggestionsBuilder"));
-const CommandNode_1 = __importDefault(require("./lib/tree/CommandNode"));
 const ArgumentCommandNode_1 = __importDefault(require("./lib/tree/ArgumentCommandNode"));
 const LiteralCommandNode_1 = __importDefault(require("./lib/tree/LiteralCommandNode"));
 const RootCommandNode_1 = __importDefault(require("./lib/tree/RootCommandNode"));
@@ -57,7 +56,6 @@ module.exports = {
     Suggestion: Suggestion_1.default,
     Suggestions: Suggestions_1.default,
     SuggestionsBuilder: SuggestionsBuilder_1.default,
-    CommandNode: CommandNode_1.default,
     ArgumentCommandNode: ArgumentCommandNode_1.default,
     LiteralCommandNode: LiteralCommandNode_1.default,
     RootCommandNode: RootCommandNode_1.default
