@@ -7,3 +7,6 @@ ___
 - Update README
 - Clearer d.ts
 - Add an example folder
+## 0.05
+- Update index.d.ts to clear some typescript error
+- Remove unnecessary d.ts

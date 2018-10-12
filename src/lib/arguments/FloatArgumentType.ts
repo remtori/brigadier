@@ -57,11 +57,7 @@ export default class FloatArgumentType implements ArgumentType<number> {
         
         return this.maximum == o.maximum && this.minimum == o.minimum;
     }
-    
-    // public hashCode(): number {
-    //     return 31 * this.minimum + this.maximum;
-    // }
-    
+
     public toString(): string {		
         if (this.minimum === -Infinity && this.maximum === Infinity) {
             return "float()";

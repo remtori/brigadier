@@ -35,10 +35,6 @@ export default class Suggestions {
         return this.range.equals(o.range) && isEqual(this.suggestions, o.suggestions);
     }
     
-    // public hashCode(): number {
-    //     return Objects.hash(this.range, this.suggestions);
-    // }
-    
     public toString(): String {
 		return "Suggestions{" + 
 		"range=" + this.range + 

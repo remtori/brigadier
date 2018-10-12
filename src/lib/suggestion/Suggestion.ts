@@ -51,10 +51,6 @@ export default class Suggestion {
         return isEqual(this.range, o.range) && (this.text === o.text) && isEqual(this.tooltip, o.tooltip);
     }
     
-    // public hashCode(): number {
-    //     return Objects.hash(this.range, this.text, this.tooltip);
-    // }
-    
     public toString(): String {
         return "Suggestion{" +
 		"range=" + this.range +

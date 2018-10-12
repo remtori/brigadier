@@ -101,12 +101,6 @@ export default class ArgumentCommandNode<S, T> extends CommandNode<S> {
         return super.equals(o);
     }
     
-    // public hashCode(): number {
-    //     let result = this.name.hashCode();
-    //     result = 31 * result + this.type.hashCode();
-    //     return result;
-    // }
-    
     public getSortedKey(): string {
         return this.name;
     }

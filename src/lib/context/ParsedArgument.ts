@@ -24,8 +24,4 @@ export default class ParsedArgument<S, T> {
         
         return this.range.equals(o.range) && this.result === o.result;
     }
-    
-    // public hashCode(): number {
-    //     return Objects.hash(this.range, this.result);
-    // }
 }

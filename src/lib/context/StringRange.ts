@@ -51,10 +51,6 @@ export default class StringRange {
         return this.start === o.start && this.end == o.end;
     }
     
-    // public hashCode(): number {
-    //     return Objects.hash(start, end);
-    // }
-    
     public toString(): string {
         return "StringRange{" + "start=" + this.start + ", end=" + this.end + '}';
     }

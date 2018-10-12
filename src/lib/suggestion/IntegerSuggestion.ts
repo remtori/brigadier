@@ -22,10 +22,6 @@ export default class IntegerSuggestion extends Suggestion {
         
         return this.value == o.value && super.equals(o);
     }
-
-    // public hashCode(): number {
-    //     return Objects.hash(super.hashCode(), this.value);
-    // }
     
     public toString(): String {
         return "IntegerSuggestion{" +

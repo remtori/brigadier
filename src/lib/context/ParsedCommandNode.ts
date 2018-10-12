@@ -32,8 +32,4 @@ export default class ParsedCommandNode<S> {
         
         return this.node.equals(o.node) && this.range.equals(o.range);
     }
-    
-    // public hashCode(): number {
-    //     return Objects.hash(this.node, this.range);
-    // }
 }

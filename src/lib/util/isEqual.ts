@@ -6,19 +6,25 @@ export default function isEqual(a: any, b: any): boolean { // @Warning: May caus
 	if (typeof a != typeof b)
 		return false;
 
+	if (!(a instanceof Object))
+		return false;	
+
 	if (typeof a === "function")
 		return a.toString() === b.toString();
 
-	if (a instanceof Map && b instanceof Map)
+	if (a.constructor !== b.constructor)
+		return false;
+
+	if (a instanceof Map)
 		return isMapEqual(a, b);
 
-	if (a instanceof Set && b instanceof Set) 
+	if (a instanceof Set) 
 		return isArrayEqual([...a], [...b]);
 
-	if (a instanceof Array && b instanceof Array)
+	if (a instanceof Array)
 		return isArrayEqual(a, b);
 
-	if (typeof a === "object" && typeof b === "object")
+	if (typeof a === "object")
 		return isObjectEqual(a, b);
 
 	return false;
@@ -28,7 +34,7 @@ function isMapEqual(a: Map<any, any>, b: Map<any, any>): boolean {
 
 	if (a.size != b.size) return false;
 
-	for (var [key, val] of a) {
+	for (let [key, val] of a) {
 		const testVal = b.get(key);
 		if (!isEqual(testVal, val))
 			return false;
@@ -50,7 +56,7 @@ function isArrayEqual(a: Array<any>, b: Array<any>): boolean {
 	return true;
 }
 
-function isObjectEqual(a: Object, b: Object): boolean {
+function isObjectEqual(a: object, b: object): boolean {
 
 	const aKeys = Object.keys(a);
     const bKeys = Object.keys(b);

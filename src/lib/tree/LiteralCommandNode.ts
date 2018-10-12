@@ -87,12 +87,6 @@ export default class LiteralCommandNode<S> extends CommandNode<S> {
         return this.literal;
     }
     
-    // public hashCode(): number {
-    //     let result = this.literal.hashCode();
-    //     result = ((31 * result) + super.hashCode());
-    //     return result;
-    // }
-    
     public createBuilder(): LiteralArgumentBuilder<S> {
         let builder: LiteralArgumentBuilder<S> = LiteralArgumentBuilder.literal(this.literal);
         builder.requires(this.getRequirement());

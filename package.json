@@ -1,6 +1,6 @@
 {
   "name": "node-brigadier",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "description": "A javascript version of Mojangs Brigadier library",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
