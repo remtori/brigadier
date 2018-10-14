@@ -24,7 +24,8 @@ describe('RootCommandNodeTest', () => {
 
 	it('testAddChildNoRoot', () => {
 		try {
-			node.addChild(new RootCommandNode());
+            node.addChild(new RootCommandNode()); 
+            assert.fail();
 		} catch (ex) {
 			expect(ex instanceof Error).to.equal(true)
 		}

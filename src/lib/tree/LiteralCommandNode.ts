@@ -102,7 +102,7 @@ export default class LiteralCommandNode<S> extends CommandNode<S> {
     }
     
     public getExamples(): Iterable<string> {
-		return new Set([this.literal]).values();
+		return [ this.literal ];
     }
     
     public toString(): string {

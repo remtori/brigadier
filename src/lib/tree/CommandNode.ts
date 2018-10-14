@@ -98,7 +98,7 @@ abstract class CommandNode<S> {
     }
     
     public findAmbiguities(consumer: AmbiguityConsumer<S>) {
-        let matches: Set<string> = new Set();
+        let matches: Array<string> = [];
         for (let child of this.children.values()) {
             for (let sibling of this.children.values()) {
                 if (child === sibling) {
@@ -107,13 +107,13 @@ abstract class CommandNode<S> {
                 
                 for (let input of child.getExamples()) {
                     if (sibling.isValidInput(input)) {
-                        matches.add(input);
+                        matches.push(input);
                     }                    
                 }
                 
-                if (matches.size > 0) {
-                    consumer.ambiguous(this, child, sibling, matches.values());
-                    matches = new Set();
+                if (matches.length > 0) {
+                    consumer.ambiguous(this, child, sibling, matches);
+                    matches = [];
                 }
                 
             }
@@ -169,7 +169,7 @@ abstract class CommandNode<S> {
             input.setCursor(cursor);
             let literal = this.literals.get(text);
             if (literal != null) {
-				return new Set([literal]).values();
+				return[ literal ];
             }
             else {
                 return this.args.values();

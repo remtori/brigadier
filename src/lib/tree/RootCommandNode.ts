@@ -53,7 +53,7 @@ export default class RootCommandNode<S> extends CommandNode<S> {
     }
     
     public getExamples(): Iterable<string> {
-        return new Set().values();
+        return [];
     }
     
     public toString(): string {
