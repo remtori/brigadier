@@ -7,6 +7,9 @@ ___
 - Update README
 - Clearer d.ts
 - Add an example folder
-## 0.05
+## 0.0.5
 - Update index.d.ts to clear some typescript error
 - Remove unnecessary d.ts
+## 0.0.6
+- Update d.ts
+- Change Set to Array (IterableIterator -> Iterable)

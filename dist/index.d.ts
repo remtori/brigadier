@@ -1,4 +1,4 @@
-// Type definitions for brigadier[0.0.5]
+// Type definitions for brigadier[0.0.6]
 // Project: Brigadier
 // Definitions by: Remtori <https://github.com/Remtori>
 
