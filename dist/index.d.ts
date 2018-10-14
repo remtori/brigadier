@@ -105,10 +105,12 @@ declare class CommandSyntaxException extends Error {
 	getCursor(): number;
 }
 declare class Dynamic2CommandExceptionType implements CommandExceptionType {
+    constructor(fn: Function);
 	create(a: Object, b: Object): CommandSyntaxException;
 	createWithContext(reader: ImmutableStringReader, a: Object, b: Object): CommandSyntaxException;
 }
 declare class DynamicCommandExceptionType implements CommandExceptionType {
+    constructor(fn: Function);
 	create(arg: Object): CommandSyntaxException;
 	createWithContext(reader: ImmutableStringReader, arg: Object): CommandSyntaxException;
 }
@@ -423,9 +425,7 @@ export declare class CommandDispatcher<S> {
     public setConsumer(consumer: ResultConsumer<S>): void
 
     /**
-     * Parses and executes a given command.
-     *
-     * <p>This is a shortcut to first {@link #parse(StringReader, Object)} and then {@link #execute(ParseResults)}.</p>
+     * Parses and executes a given command.    
      *
      * <p>It is recommended to parse and execute as separate steps, as parsing is often the most expensive step, and easiest to cache.</p>
      *
@@ -452,7 +452,8 @@ export declare class CommandDispatcher<S> {
      * @see #execute(ParseResults)
      * @see #execute(StringReader, Object)
      */
-    public execute(input: string | StringReader | ParseResults<S>, source?: S): number    
+    public execute(input: string | StringReader, source: S): number    
+    public execute(input: ParseResults<S>): number
 
     /**
      * Parses a given command.
