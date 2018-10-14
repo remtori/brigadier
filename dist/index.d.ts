@@ -1,4 +1,4 @@
-// Type definitions for brigadier[0.0.1]
+// Type definitions for brigadier[0.0.5]
 // Project: Brigadier
 // Definitions by: Remtori <https://github.com/Remtori>
 
@@ -452,35 +452,7 @@ export declare class CommandDispatcher<S> {
      * @see #execute(ParseResults)
      * @see #execute(StringReader, Object)
      */
-    public execute(input: string | StringReader, source: S): number
-
-    /**
-     * Executes a given pre-parsed command.
-     *
-     * <p>If this command returns a value, then it successfully executed something. If the execution was a failure,
-     * then an exception will be thrown.
-     * Most exceptions will be of type {@link CommandSyntaxException}, but it is possible that a {@link RuntimeException}
-     * may bubble up from the result of a command. The meaning behind the returned result is arbitrary, and will depend
-     * entirely on what command was performed.</p>
-     *
-     * <p>If the command passes through a node that is {@link CommandNode#isFork()} then it will be 'forked'.
-     * A forked command will not bubble up any {@link CommandSyntaxException}s, and the 'result' returned will turn into
-     * 'amount of successful commands executes'.</p>
-     *
-     * <p>After each and any command is ran, a registered callback given to {@link #setConsumer(ResultConsumer)}
-     * will be notified of the result and success of the command. You can use that method to gather more meaningful
-     * results than this method will return, especially when a command forks.</p>
-     *
-     * @param parse the result of a successful {@link #parse(StringReader, Object)}
-     * @return a numeric result from a "command" that was performed.
-     * @throws CommandSyntaxException if the command failed to parse or execute
-     * @throws RuntimeException if the command failed to execute and was not handled gracefully
-     * @see #parse(String, Object)
-     * @see #parse(StringReader, Object)
-     * @see #execute(String, Object)
-     * @see #execute(StringReader, Object)
-     */
-    public execute(parse: ParseResults<S>): number
+    public execute(input: string | StringReader | ParseResults<S>, source?: S): number    
 
     /**
      * Parses a given command.
