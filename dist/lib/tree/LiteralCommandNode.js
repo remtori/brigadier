@@ -83,7 +83,7 @@ class LiteralCommandNode extends CommandNode_1.default {
         return this.literal;
     }
     getExamples() {
-        return new Set([this.literal]).values();
+        return [this.literal];
     }
     toString() {
         return "<literal " + this.literal + ">";

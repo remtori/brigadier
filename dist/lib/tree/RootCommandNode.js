@@ -40,7 +40,7 @@ class RootCommandNode extends CommandNode_1.default {
         return "";
     }
     getExamples() {
-        return new Set().values();
+        return [];
     }
     toString() {
         return "<root>";

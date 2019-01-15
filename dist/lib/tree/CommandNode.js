@@ -62,7 +62,7 @@ class CommandNode {
         this.children = new Map([...this.children.entries()].sort((a, b) => a[1].compareTo(b[1])));
     }
     findAmbiguities(consumer) {
-        let matches = new Set();
+        let matches = [];
         for (let child of this.children.values()) {
             for (let sibling of this.children.values()) {
                 if (child === sibling) {
@@ -70,12 +70,12 @@ class CommandNode {
                 }
                 for (let input of child.getExamples()) {
                     if (sibling.isValidInput(input)) {
-                        matches.add(input);
+                        matches.push(input);
                     }
                 }
-                if (matches.size > 0) {
-                    consumer.ambiguous(this, child, sibling, matches.values());
-                    matches = new Set();
+                if (matches.length > 0) {
+                    consumer.ambiguous(this, child, sibling, matches);
+                    matches = [];
                 }
             }
             child.findAmbiguities(consumer);
@@ -109,7 +109,7 @@ class CommandNode {
             input.setCursor(cursor);
             let literal = this.literals.get(text);
             if (literal != null) {
-                return new Set([literal]).values();
+                return [literal];
             }
             else {
                 return this.args.values();

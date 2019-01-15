@@ -1,16 +1,16 @@
 {
   "name": "node-brigadier",
-  "version": "0.0.6",
+  "version": "0.0.7",
   "description": "A javascript version of Mojangs Brigadier library",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "homepage": "http://github.com/remtori/brigadier",
   "repository": {
-	  "type": "git",
-	  "url": "git://github.com/remtori/brigadier.git"
+    "type": "git",
+    "url": "git://github.com/remtori/brigadier.git"
   },
   "keywords": [
-	  "command"	  
+    "command"
   ],
   "dependencies": {},
   "devDependencies": {
@@ -26,9 +26,9 @@
   },
   "scripts": {
     "build": "tsc",
-	"test": "mocha --require ts-node/register test/**/*.ts",
-	"test-p": "mocha --require ts-node/register test/StringReaderTest.ts",
-	"benchmark": "radargun test/benchmarks/*.js"
+    "test": "mocha --require ts-node/register test/**/*.ts",
+    "test-p": "mocha --require ts-node/register test/StringReaderTest.ts",
+    "benchmark": "radargun test/benchmarks/*.js"
   },
   "author": "Remtori",
   "license": "MIT"

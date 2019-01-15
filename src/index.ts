@@ -25,6 +25,7 @@ import RootCommandNode from "./lib/tree/RootCommandNode"
 const { word, string, greedyString, bool, integer, float} = DefaultType
 
 module.exports = {
+	dispatcher: new CommandDispatcher(),
 	word, string, greedyString, bool, integer, float,	
 	literal, argument,
 	CommandDispatcher,

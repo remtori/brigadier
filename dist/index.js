@@ -35,6 +35,7 @@ const LiteralCommandNode_1 = __importDefault(require("./lib/tree/LiteralCommandN
 const RootCommandNode_1 = __importDefault(require("./lib/tree/RootCommandNode"));
 const { word, string, greedyString, bool, integer, float } = ArgumentType_1.DefaultType;
 module.exports = {
+    dispatcher: new CommandDispatcher_1.default(),
     word, string, greedyString, bool, integer, float,
     literal: LiteralArgumentBuilder_1.literal, argument: RequiredArgumentBuilder_1.argument,
     CommandDispatcher: CommandDispatcher_1.default,

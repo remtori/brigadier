@@ -13,3 +13,7 @@ ___
 ## 0.0.6
 - Update d.ts
 - Change Set to Array (IterableIterator -> Iterable)
+## 0.0.7
+- Fix Exception classes required 0 argument in constructor
+## 0.0.8
+- Export a default dispatcher `dispatcher = new CommandDispatcher()`

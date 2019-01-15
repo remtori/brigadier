@@ -599,3 +599,5 @@ export declare class CommandDispatcher<S> {
      */
     public findAmbiguities(consumer: AmbiguityConsumer<S>): void    
 }
+
+export declare let dispatcher: CommandDispatcher<object>;
