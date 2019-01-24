@@ -12,7 +12,6 @@ import ParsedCommandNode from "./lib/context/ParsedCommandNode"
 import StringRange from "./lib/context/StringRange"
 import SuggestionsContext from "./lib/context/SuggestionContext"
 import CommandSyntaxException from "./lib/exceptions/CommandSyntaxException"
-import Dynamic2CommandExceptionType from "./lib/exceptions/Dynamic2CommandExceptionType"
 import DynamicCommandExceptionType from "./lib/exceptions/DynamicCommandExceptionType"
 import SimpleCommandExceptionType from "./lib/exceptions/SimpleCommandExceptionType"
 import Suggestion from "./lib/suggestion/Suggestion"
@@ -43,7 +42,6 @@ module.exports = {
 	CommandSyntaxException,
 	SimpleCommandExceptionType,
 	DynamicCommandExceptionType,
-	Dynamic2CommandExceptionType,
 	Suggestion,
 	Suggestions,
 	SuggestionsBuilder,

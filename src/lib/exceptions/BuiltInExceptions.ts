@@ -2,17 +2,16 @@ import LiteralMessage from "../LiteralMessage"
 import BuiltInExceptionProvider from "./BuiltInExceptionProvider"
 import SimpleCommandExceptionType from "./SimpleCommandExceptionType"
 import DynamicCommandExceptionType from "./DynamicCommandExceptionType"
-import Dynamic2CommandExceptionType from "./Dynamic2CommandExceptionType"
 
 export default class BuiltInExceptions implements BuiltInExceptionProvider {    
     
-    private static FLOAT_TOO_SMALL = new Dynamic2CommandExceptionType((found, min) => new LiteralMessage("Float must not be less than " + min + ", found " + found));
+    private static FLOAT_TOO_SMALL = new DynamicCommandExceptionType((found, min) => new LiteralMessage("Float must not be less than " + min + ", found " + found));
     
-    private static FLOAT_TOO_BIG = new Dynamic2CommandExceptionType((found, max) => new LiteralMessage("Float must not be more than " + max + ", found " + found));
+    private static FLOAT_TOO_BIG = new DynamicCommandExceptionType((found, max) => new LiteralMessage("Float must not be more than " + max + ", found " + found));
     
-    private static INTEGER_TOO_SMALL = new Dynamic2CommandExceptionType((found, min) => new LiteralMessage("Integer must not be less than " + min + ", found " + found));
+    private static INTEGER_TOO_SMALL = new DynamicCommandExceptionType((found, min) => new LiteralMessage("Integer must not be less than " + min + ", found " + found));
     
-    private static INTEGER_TOO_BIG = new Dynamic2CommandExceptionType((found, max) => new LiteralMessage("Integer must not be more than " + max + ", found " + found));
+    private static INTEGER_TOO_BIG = new DynamicCommandExceptionType((found, max) => new LiteralMessage("Integer must not be more than " + max + ", found " + found));
     
     private static LITERAL_INCORRECT: DynamicCommandExceptionType = new DynamicCommandExceptionType(expected => new LiteralMessage("Expected literal " + expected));
     
@@ -44,19 +43,19 @@ export default class BuiltInExceptions implements BuiltInExceptionProvider {
     
     private static DISPATCHER_PARSE_EXCEPTION: DynamicCommandExceptionType = new DynamicCommandExceptionType(message => new LiteralMessage(("Could not parse command: " + message)));
             
-    public floatTooLow(): Dynamic2CommandExceptionType {
+    public floatTooLow(): DynamicCommandExceptionType {
         return BuiltInExceptions.FLOAT_TOO_SMALL;
     }
     
-    public floatTooHigh(): Dynamic2CommandExceptionType {
+    public floatTooHigh(): DynamicCommandExceptionType {
         return BuiltInExceptions.FLOAT_TOO_BIG;
     }
 
-    public integerTooLow(): Dynamic2CommandExceptionType {
+    public integerTooLow(): DynamicCommandExceptionType {
         return BuiltInExceptions.INTEGER_TOO_SMALL;
     }
     
-    public integerTooHigh(): Dynamic2CommandExceptionType {
+    public integerTooHigh(): DynamicCommandExceptionType {
         return BuiltInExceptions.INTEGER_TOO_BIG;
     }
     

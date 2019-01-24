@@ -104,15 +104,10 @@ declare class CommandSyntaxException extends Error {
 	getInput(): string;
 	getCursor(): number;
 }
-declare class Dynamic2CommandExceptionType implements CommandExceptionType {
-    constructor(fn: Function);
-	create(a: Object, b: Object): CommandSyntaxException;
-	createWithContext(reader: ImmutableStringReader, a: Object, b: Object): CommandSyntaxException;
-}
 declare class DynamicCommandExceptionType implements CommandExceptionType {
-    constructor(fn: Function);
-	create(arg: Object): CommandSyntaxException;
-	createWithContext(reader: ImmutableStringReader, arg: Object): CommandSyntaxException;
+    constructor(fn: (...args: any[]) => Message);
+	create(...args: any[]): CommandSyntaxException;
+	createWithContext(reader: ImmutableStringReader, ...args: any[]): CommandSyntaxException;
 }
 declare class SimpleCommandExceptionType implements CommandExceptionType {
 	private message;

@@ -1,16 +1,15 @@
-import Dynamic2CommandExceptionType from "./Dynamic2CommandExceptionType"
 import DynamicCommandExceptionType from "./DynamicCommandExceptionType"
 import SimpleCommandExceptionType from "./SimpleCommandExceptionType"
 
 export default interface BuiltInExceptionProvider {		
 	
-	floatTooLow(): Dynamic2CommandExceptionType;
+	floatTooLow(): DynamicCommandExceptionType;
 	
-	floatTooHigh(): Dynamic2CommandExceptionType;
+	floatTooHigh(): DynamicCommandExceptionType;
 	
-	integerTooLow(): Dynamic2CommandExceptionType;
+	integerTooLow(): DynamicCommandExceptionType;
 	
-	integerTooHigh(): Dynamic2CommandExceptionType;	
+	integerTooHigh(): DynamicCommandExceptionType;	
 	
 	literalIncorrect(): DynamicCommandExceptionType;
 	

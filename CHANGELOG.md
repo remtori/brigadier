@@ -17,3 +17,7 @@ ___
 - Fix Exception classes required 0 argument in constructor
 ## 0.0.8
 - Export a default dispatcher `dispatcher = new CommandDispatcher()`
+## 0.0.9
+- Remove `Dynamic2CommandExceptionType`
+- Make `DynamicCommandExceptionType` recieve any argument
+- Clearer declaration in d.ts
