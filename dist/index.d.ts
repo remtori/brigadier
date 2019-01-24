@@ -138,6 +138,7 @@ declare class BuiltInExceptions {
 	private static DISPATCHER_PARSE_EXCEPTION;
 }
 declare class StringReader implements ImmutableStringReader {
+	constructor(s: StringReader | string);
 	getString(): string;
 	setCursor(cursor: number): void;
 	getRemainingLength(): number;

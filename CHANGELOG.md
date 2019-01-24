@@ -20,4 +20,6 @@ ___
 ## 0.0.9
 - Remove `Dynamic2CommandExceptionType`
 - Make `DynamicCommandExceptionType` recieve any argument
-- Clearer declaration in d.ts
+- Clearer declaration (d.ts)
+## 0.0.10
+- Add constructor to `StringReader` in d.ts (Opps~)
