@@ -21,7 +21,7 @@ export default interface ArgumentType<T> {
     
     parse(reader: StringReader): T;
     
-    listSuggestions(context: CommandContext<any>, builder: SuggestionsBuilder): Promise<Suggestions>;
+    listSuggestions?<S>(context: CommandContext<S>, builder: SuggestionsBuilder): Promise<Suggestions>;
     
-    getExamples(): Iterable<string>;
+    getExamples?(): Iterable<string>;
 }

@@ -23,7 +23,7 @@ export default class ParsedCommandNode<S> {
         return this.node + "@" + this.range;
     }
     
-    public equals(o): boolean {
+    public equals(o: object): boolean {
         if (this === o) return true;
         
         if (o == null || !(o instanceof ParsedCommandNode)) {

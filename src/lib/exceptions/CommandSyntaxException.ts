@@ -20,6 +20,8 @@ export default class CommandSyntaxException extends Error {
         this.__message = message;
         this.input = input;
         this.cursor = cursor;
+
+        this.message = this.getMessage();
     }
     
     public getMessage(): string {
@@ -67,5 +69,9 @@ export default class CommandSyntaxException extends Error {
     
     public getCursor(): number {
         return this.cursor;
+    }
+
+    public toString(): string {
+        return this.message;
     }
 }

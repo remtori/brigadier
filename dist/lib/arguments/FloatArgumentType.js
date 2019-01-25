@@ -4,7 +4,6 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const CommandSyntaxException_1 = __importDefault(require("../exceptions/CommandSyntaxException"));
-const Suggestions_1 = __importDefault(require("../suggestion/Suggestions"));
 const EXAMPLES = ["0", "1.2", ".5", "-1", "-.5", "-1234.56"];
 class FloatArgumentType {
     constructor(minimum, maximum) {
@@ -54,10 +53,6 @@ class FloatArgumentType {
             return "float(" + this.minimum + ", " + this.maximum + ")";
         }
     }
-    listSuggestions(context, builder) {
-        return Suggestions_1.default.empty();
-    }
-    ;
     getExamples() {
         return EXAMPLES;
     }

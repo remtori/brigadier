@@ -9,7 +9,7 @@ export default class RequiredArgumentBuilder<S, T> extends ArgumentBuilder<S, Re
     
     private type: ArgumentType<T>;
     
-    private suggestionsProvider: SuggestionProvider<S> = null;
+    private suggestionsProvider: SuggestionProvider<S>;
     
     private constructor (name: string, type: ArgumentType<T>) {
 		super();

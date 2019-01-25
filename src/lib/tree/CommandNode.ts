@@ -125,7 +125,7 @@ abstract class CommandNode<S> {
     
     public abstract isValidInput(input: string): boolean;
     
-    public equals(o): boolean {
+    public equals(o: object): boolean {
         if (this === o) return true;
         if (!(o instanceof CommandNode)) return false;
 

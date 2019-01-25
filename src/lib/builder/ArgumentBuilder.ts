@@ -4,6 +4,7 @@ import SingleRedirectModifier from "../SingleRedirectModifier"
 import CommandNode from "../tree/CommandNode"
 import RootCommandNode from "../tree/RootCommandNode"
 import Predicate from "../Predicate"
+import CommandContext from "../context/CommandContext";
 
 abstract class ArgumentBuilder<S, T extends ArgumentBuilder<S, T>> {
     
@@ -56,8 +57,8 @@ abstract class ArgumentBuilder<S, T extends ArgumentBuilder<S, T>> {
         return this.requirement;
     }
     
-    public redirect(target: CommandNode<S>, modifier: SingleRedirectModifier<S> = null): T {
-        return this.forward(target, modifier == null ? null : o => [modifier.apply(o)], false);
+    public redirect(target: CommandNode<S>, modifier?: SingleRedirectModifier<S>): T {
+        return this.forward(target, modifier == null ? null : (o: CommandContext<S>) => [ modifier.apply(o) ], false);
     }
     
     public fork(target: CommandNode<S>, modifier: RedirectModifier<S>): T {

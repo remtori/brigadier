@@ -22,13 +22,16 @@ describe('RootCommandNodeTest', () => {
         assert.equal(reader.getCursor(), 0);
     })
 
-	it('testAddChildNoRoot', () => {
+	it('testAddChildNoRoot', done => {
 		try {
-            node.addChild(new RootCommandNode()); 
-            assert.fail();
+            node.addChild(new RootCommandNode());             
 		} catch (ex) {
-			expect(ex instanceof Error).to.equal(true)
+			expect(ex instanceof Error).to.equal(true);
+			done();
+			return;
 		}
+
+		assert.fail();
     })
 
     it('testUsage', () => {				
@@ -41,12 +44,16 @@ describe('RootCommandNodeTest', () => {
         assert.equal(result.isEmpty(), true);
     })
 
-	it('testCreateBuilder', () => {				
+	it('testCreateBuilder', done => {				
 		try {
 			node.createBuilder();
 		} catch (ex) {
-			expect(ex instanceof Error).to.equal(true)
+			expect(ex instanceof Error).to.equal(true);
+			done();
+			return;
 		}
+
+		assert.fail();
     })
 
     it('testEquals', () => {		

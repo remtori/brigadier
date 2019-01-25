@@ -18,7 +18,7 @@ export default class ParsedArgument<S, T> {
         return this.result;
     }
     
-    public equals(o): boolean {
+    public equals(o: object): boolean {
         if (this === o) return true;        
         if (!(o instanceof  ParsedArgument)) return false;
         

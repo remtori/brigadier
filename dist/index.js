@@ -24,7 +24,6 @@ const ParsedCommandNode_1 = __importDefault(require("./lib/context/ParsedCommand
 const StringRange_1 = __importDefault(require("./lib/context/StringRange"));
 const SuggestionContext_1 = __importDefault(require("./lib/context/SuggestionContext"));
 const CommandSyntaxException_1 = __importDefault(require("./lib/exceptions/CommandSyntaxException"));
-const Dynamic2CommandExceptionType_1 = __importDefault(require("./lib/exceptions/Dynamic2CommandExceptionType"));
 const DynamicCommandExceptionType_1 = __importDefault(require("./lib/exceptions/DynamicCommandExceptionType"));
 const SimpleCommandExceptionType_1 = __importDefault(require("./lib/exceptions/SimpleCommandExceptionType"));
 const Suggestion_1 = __importDefault(require("./lib/suggestion/Suggestion"));
@@ -53,7 +52,6 @@ module.exports = {
     CommandSyntaxException: CommandSyntaxException_1.default,
     SimpleCommandExceptionType: SimpleCommandExceptionType_1.default,
     DynamicCommandExceptionType: DynamicCommandExceptionType_1.default,
-    Dynamic2CommandExceptionType: Dynamic2CommandExceptionType_1.default,
     Suggestion: Suggestion_1.default,
     Suggestions: Suggestions_1.default,
     SuggestionsBuilder: SuggestionsBuilder_1.default,

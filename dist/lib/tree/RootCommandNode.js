@@ -7,7 +7,7 @@ const CommandNode_1 = __importDefault(require("./CommandNode"));
 const Suggestions_1 = __importDefault(require("../suggestion/Suggestions"));
 class RootCommandNode extends CommandNode_1.default {
     constructor() {
-        super(null, s => true, null, s => s.getSource(), false);
+        super(null, s => true, null, (s) => s.getSource(), false);
     }
     getNodeType() {
         return "root";

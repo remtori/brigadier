@@ -68,12 +68,8 @@ export default class IntegerArgumentType implements ArgumentType<number> {
         else {
             return "integer(" + this.minimum + ", " + this.maximum + ")";
         }        
-	}
-	
-	public listSuggestions(context: CommandContext<any>, builder: SuggestionsBuilder): Promise<Suggestions> {
-		return Suggestions.empty();
-	};
-
+    }
+    
     public getExamples(): Iterable<string> {
         return EXAMPLES;
     }

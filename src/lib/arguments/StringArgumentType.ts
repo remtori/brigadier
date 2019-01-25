@@ -56,15 +56,7 @@ export default class StringArgumentType implements ArgumentType<string> {
 
     public toString(): string {
         return "string()";
-	}
-	
-	listSuggestions(context: CommandContext<any>, builder: SuggestionsBuilder): Promise<Suggestions> {
-		return Suggestions.empty()
-	};
-    
-    public getExamples(): Iterable<string> {
-        return [];
-    }
+	}	
     
     public static escapeIfRequired(input: string): String {
         for (let c of input) {

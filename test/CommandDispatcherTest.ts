@@ -94,68 +94,83 @@ describe('CommandDispatcherTest', () => {
         assert.equal(command.verify("anything") === 2, true);
     })
 
-    it('testExecuteUnknownCommand', () => {		
+    it('testExecuteUnknownCommand', done => {		
         subject.register(literal("bar"));
         subject.register(literal("baz"));
 
         try {
-            subject.execute("foo", source);
-            assert.fail();
+            subject.execute("foo", source);            
         } catch (ex) {
             assert.equal(ex.getType(), CommandSyntaxException.BUILT_IN_EXCEPTIONS.dispatcherUnknownCommand());
             assert.equal(ex.getCursor(), 0);
+            done();
+            return;
         }
+
+        assert.fail();
     })
 
-    it('testExecuteImpermissibleCommand', () => {		
+    it('testExecuteImpermissibleCommand', done => {		
         subject.register(literal("foo").requires(s => false));
 
         try {
-            subject.execute("foo", source);
-            assert.fail();
+            subject.execute("foo", source);            
         } catch (ex) {
             assert.equal(ex.getType(), CommandSyntaxException.BUILT_IN_EXCEPTIONS.dispatcherUnknownCommand());
             assert.equal(ex.getCursor(), 0);
+            done();
+            return;
         }
+
+        assert.fail();
     })
 
-    it('testExecuteEmptyCommand', () => {		
+    it('testExecuteEmptyCommand', done => {		
         subject.register(literal(""));
 
         try {
-            subject.execute("", source);
-            assert.fail();
+            subject.execute("", source);            
         } catch (ex) {
             assert.equal(ex.getType(), CommandSyntaxException.BUILT_IN_EXCEPTIONS.dispatcherUnknownCommand());
             assert.equal(ex.getCursor(), 0);
+            done();
+            return;
         }
+
+        assert.fail();
     })
 
-    it('testExecuteUnknownSubcommand', () => {		
+    it('testExecuteUnknownSubcommand', done => {		
         subject.register(literal("foo").executes(command));
 
         try {
-            subject.execute("foo bar", source);
-            assert.fail();
+            subject.execute("foo bar", source);            
         } catch (ex) {
             assert.equal(ex.getType(), CommandSyntaxException.BUILT_IN_EXCEPTIONS.dispatcherUnknownArgument());
             assert.equal(ex.getCursor(), 4);
+            done();
+            return;
         }
+
+        assert.fail();
     })
 
-    it('testExecuteIncorrectLiteral', () => {		
+    it('testExecuteIncorrectLiteral', done => {		
         subject.register(literal("foo").executes(command).then(literal("bar")));
 
         try {
-            subject.execute("foo baz", source);
-            assert.fail();
+            subject.execute("foo baz", source);            
         } catch (ex) {
             assert.equal(ex.getType(), CommandSyntaxException.BUILT_IN_EXCEPTIONS.dispatcherUnknownArgument());
             assert.equal(ex.getCursor(), 4);
+            done();
+            return;
         }
+
+        assert.fail();
     })
 
-    it('testExecuteAmbiguousIncorrectArgument', () => {		
+    it('testExecuteAmbiguousIncorrectArgument', done => {		
         subject.register(
             literal("foo").executes(command)
                 .then(literal("bar"))
@@ -163,12 +178,15 @@ describe('CommandDispatcherTest', () => {
         );
 
         try {
-            subject.execute("foo unknown", source);
-            assert.fail();
+            subject.execute("foo unknown", source);            
         } catch (ex) {
             assert.equal(ex.getType(), CommandSyntaxException.BUILT_IN_EXCEPTIONS.dispatcherUnknownArgument());
             assert.equal(ex.getCursor(), 4);
+            done();
+            return;
         }
+
+        assert.fail();
     })
 
     it('testExecuteSubcommand', () => {
@@ -327,18 +345,21 @@ describe('CommandDispatcherTest', () => {
 			assert.fail();
     })
 
-    it('testExecuteOrphanedSubcommand', () => {		
+    it('testExecuteOrphanedSubcommand', done => {		
         subject.register(literal("foo").then(
             argument("bar", integer())
         ).executes(command));
 
         try {
             subject.execute("foo 5", source);
-            assert.fail();
         } catch (ex) {
             assert.equal(ex.getType(), CommandSyntaxException.BUILT_IN_EXCEPTIONS.dispatcherUnknownCommand());
             assert.equal(ex.getCursor(), 5);
+            done();
+            return;
         }
+
+        assert.fail();
     })
 
     it('testExecute_invalidOther', () => {		
@@ -352,30 +373,36 @@ describe('CommandDispatcherTest', () => {
         assert.equal(command.verify("anything") > 0, true);
     })
 
-    it('parse_noSpaceSeparator', () => {		
+    it('parse_noSpaceSeparator', done => {		
         subject.register(literal("foo").then(argument("bar", integer()).executes(command)));
 
         try {
-            subject.execute("foo$", source);
-            assert.fail();
+            subject.execute("foo$", source);            
         } catch (ex) {
             assert.equal(ex.getType(), CommandSyntaxException.BUILT_IN_EXCEPTIONS.dispatcherUnknownCommand());
             assert.equal(ex.getCursor(), 0);
+            done();
+            return;
         }
+
+        assert.fail();
     })
 
-    it('testExecuteInvalidSubcommand', () => {		
+    it('testExecuteInvalidSubcommand', done => {		
         subject.register(literal("foo").then(
             argument("bar", integer())
         ).executes(command));
 
         try {
-            subject.execute("foo bar", source);
-            assert.fail();
+            subject.execute("foo bar", source);            
         } catch (ex) {
             assert.equal(ex.getType(), CommandSyntaxException.BUILT_IN_EXCEPTIONS.readerExpectedInt());
             assert.equal(ex.getCursor(), 4);
+            done();
+            return;
         }
+
+        assert.fail();
     })
 
     it('testGetPath', () => {

@@ -49,7 +49,8 @@ function isObjectEqual(a, b) {
         return false;
     if (!aKeys.every(key => b.hasOwnProperty(key)))
         return false;
-    return aKeys.every(key => {
+    return aKeys.every((key) => {
         return isEqual(a[key], b[key]);
     });
 }
+;

@@ -5,10 +5,22 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const isEqual_1 = __importDefault(require("../util/isEqual"));
 const PRIMITIVE_TO_WRAPPER = new Map();
-PRIMITIVE_TO_WRAPPER.set(0 /* Int */, v => parseInt(v));
-PRIMITIVE_TO_WRAPPER.set(1 /* Float */, v => parseFloat(v));
-PRIMITIVE_TO_WRAPPER.set(2 /* Boolean */, v => v == true); // == is used intentionally here 
-PRIMITIVE_TO_WRAPPER.set(3 /* String */, v => v.toString());
+PRIMITIVE_TO_WRAPPER.set(0 /* Int */, (v) => parseInt(v));
+PRIMITIVE_TO_WRAPPER.set(1 /* Float */, (v) => parseFloat(v));
+PRIMITIVE_TO_WRAPPER.set(3 /* String */, (v) => v.toString());
+PRIMITIVE_TO_WRAPPER.set(2 /* Boolean */, (v) => {
+    switch (v) {
+        case true:
+        case "true":
+        case 1:
+        case "1":
+        case "on":
+        case "yes":
+            return true;
+        default:
+            return false;
+    }
+});
 class CommandContext {
     constructor(source, input, args, command, rootNode, nodes, range, child, modifier, forks) {
         this.source = source;
@@ -48,12 +60,18 @@ class CommandContext {
         if (arg == null) {
             throw new Error("No such argument '" + name + "' exists on this command");
         }
-        const result = arg.getResult();
+        let result = arg.getResult();
         if (clazz == null) {
             return result;
         }
         else if (PRIMITIVE_TO_WRAPPER.has(clazz)) {
-            return PRIMITIVE_TO_WRAPPER.get(clazz)(result);
+            try {
+                result = PRIMITIVE_TO_WRAPPER.get(clazz)(result);
+                return result;
+            }
+            catch (ignore) {
+                throw new Error("Invaild Type: " + clazz.toString());
+            }
         }
         else {
             try {
@@ -61,7 +79,7 @@ class CommandContext {
                     return result;
             }
             catch (ignore) {
-                throw new Error("Invail Type: " + clazz.toString());
+                throw new Error("Invaild Type: " + clazz.toString());
             }
         }
     }

@@ -8,7 +8,6 @@ const ArgumentBuilder_1 = __importDefault(require("./ArgumentBuilder"));
 class RequiredArgumentBuilder extends ArgumentBuilder_1.default {
     constructor(name, type) {
         super();
-        this.suggestionsProvider = null;
         this.name = name;
         this.type = type;
     }

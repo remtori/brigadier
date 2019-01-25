@@ -32,26 +32,32 @@ describe('LiteralCommandNodeTest', () => {
         assert.equal(reader.getRemaining(), "");
     })
 
-    it('testParseSimilar', () => {		
+    it('testParseSimilar', done => {		
         const reader = new StringReader("foobar");
         try {
-            node.parse(reader, contextBuilder);
-            assert.fail();
+            node.parse(reader, contextBuilder);            
         } catch (ex) {
             assert.equal(ex.getType(), CommandSyntaxException.BUILT_IN_EXCEPTIONS.literalIncorrect());
             assert.equal(ex.getCursor(), 0);
+            done();
+            return;
         }
+
+        assert.fail();
     })
 
-    it('testParseInvalid', () => {		
+    it('testParseInvalid', done => {		
         const reader = new StringReader("bar");
         try {
-            node.parse(reader, contextBuilder);
-            assert.fail();
+            node.parse(reader, contextBuilder);            
         } catch (ex) {
             assert.equal(ex.getType(), CommandSyntaxException.BUILT_IN_EXCEPTIONS.literalIncorrect());
             assert.equal(ex.getCursor(), 0);
+            done();
+            return;
         }
+
+        assert.fail();
     })
 
     it('testUsage', () => {		

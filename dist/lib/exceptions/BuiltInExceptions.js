@@ -6,7 +6,6 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const LiteralMessage_1 = __importDefault(require("../LiteralMessage"));
 const SimpleCommandExceptionType_1 = __importDefault(require("./SimpleCommandExceptionType"));
 const DynamicCommandExceptionType_1 = __importDefault(require("./DynamicCommandExceptionType"));
-const Dynamic2CommandExceptionType_1 = __importDefault(require("./Dynamic2CommandExceptionType"));
 class BuiltInExceptions {
     floatTooLow() {
         return BuiltInExceptions.FLOAT_TOO_SMALL;
@@ -66,10 +65,10 @@ class BuiltInExceptions {
         return BuiltInExceptions.DISPATCHER_PARSE_EXCEPTION;
     }
 }
-BuiltInExceptions.FLOAT_TOO_SMALL = new Dynamic2CommandExceptionType_1.default((found, min) => new LiteralMessage_1.default("Float must not be less than " + min + ", found " + found));
-BuiltInExceptions.FLOAT_TOO_BIG = new Dynamic2CommandExceptionType_1.default((found, max) => new LiteralMessage_1.default("Float must not be more than " + max + ", found " + found));
-BuiltInExceptions.INTEGER_TOO_SMALL = new Dynamic2CommandExceptionType_1.default((found, min) => new LiteralMessage_1.default("Integer must not be less than " + min + ", found " + found));
-BuiltInExceptions.INTEGER_TOO_BIG = new Dynamic2CommandExceptionType_1.default((found, max) => new LiteralMessage_1.default("Integer must not be more than " + max + ", found " + found));
+BuiltInExceptions.FLOAT_TOO_SMALL = new DynamicCommandExceptionType_1.default((found, min) => new LiteralMessage_1.default("Float must not be less than " + min + ", found " + found));
+BuiltInExceptions.FLOAT_TOO_BIG = new DynamicCommandExceptionType_1.default((found, max) => new LiteralMessage_1.default("Float must not be more than " + max + ", found " + found));
+BuiltInExceptions.INTEGER_TOO_SMALL = new DynamicCommandExceptionType_1.default((found, min) => new LiteralMessage_1.default("Integer must not be less than " + min + ", found " + found));
+BuiltInExceptions.INTEGER_TOO_BIG = new DynamicCommandExceptionType_1.default((found, max) => new LiteralMessage_1.default("Integer must not be more than " + max + ", found " + found));
 BuiltInExceptions.LITERAL_INCORRECT = new DynamicCommandExceptionType_1.default(expected => new LiteralMessage_1.default("Expected literal " + expected));
 BuiltInExceptions.READER_EXPECTED_START_OF_QUOTE = new SimpleCommandExceptionType_1.default(new LiteralMessage_1.default("Expected quote to start a string"));
 BuiltInExceptions.READER_EXPECTED_END_OF_QUOTE = new SimpleCommandExceptionType_1.default(new LiteralMessage_1.default("Unclosed quoted string"));

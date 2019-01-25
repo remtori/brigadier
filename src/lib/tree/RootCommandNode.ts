@@ -9,7 +9,7 @@ import SuggestionsBuilder from "../suggestion/SuggestionsBuilder"
 export default class RootCommandNode<S> extends CommandNode<S> {
     
     public constructor () {
-        super(null, s => true, null, s => s.getSource(), false);
+        super(null, s => true, null, (s: CommandContext<S>) => s.getSource(), false);
 	}
 	
 	public getNodeType(): string {
@@ -36,7 +36,7 @@ export default class RootCommandNode<S> extends CommandNode<S> {
         return false;
     }
     
-    public equals(o): boolean {
+    public equals(o: object): boolean {
 
 		if (this === o) return true;
         if (!(o instanceof RootCommandNode)) return false;

@@ -26,7 +26,7 @@ describe("Command Suggestion Test", () => {
             expected.push(new Suggestion(range, suggestion));
         }
 
-        expect(result.getList()).to.have.all.members(expected);
+        expect(result.getList()).to.have.deep.members(expected);
     }
 
 	function inputWithOffset(input: string, offset: number): StringReader {
@@ -93,7 +93,7 @@ describe("Command Suggestion Test", () => {
         expect(result.getList()).to.have.deep.members([new Suggestion(StringRange.at(7), "bar"), new Suggestion(StringRange.at(7), "baz"), new Suggestion(StringRange.at(7), "foo")]);
     })
 
-    it('getCompletionSuggestions_movingCursor_subCommands', () => {		
+    it('getCompletionSuggestions_movingCursor_subCommands', async () => {		
         subject.register(
             literal("parent_one")
                 .then(literal("faz"))
@@ -105,16 +105,16 @@ describe("Command Suggestion Test", () => {
             literal("parent_two")
         );
 
-        testSuggestions("parent_one faz ", 0, StringRange.at(0), "parent_one", "parent_two");
-        testSuggestions("parent_one faz ", 1, StringRange.between(0, 1), "parent_one", "parent_two");
-        testSuggestions("parent_one faz ", 7, StringRange.between(0, 7), "parent_one", "parent_two");
-        testSuggestions("parent_one faz ", 8, StringRange.between(0, 8), "parent_one");
-        testSuggestions("parent_one faz ", 10, StringRange.at(0));
-        testSuggestions("parent_one faz ", 11, StringRange.at(11), "faz", "fbz", "gaz");
-        testSuggestions("parent_one faz ", 12, StringRange.between(11, 12), "faz", "fbz");
-        testSuggestions("parent_one faz ", 13, StringRange.between(11, 13), "faz");
-        testSuggestions("parent_one faz ", 14, StringRange.at(0));
-        testSuggestions("parent_one faz ", 15, StringRange.at(0));
+        await testSuggestions("parent_one faz ", 0, StringRange.at(0), "parent_one", "parent_two");
+        await testSuggestions("parent_one faz ", 1, StringRange.between(0, 1), "parent_one", "parent_two");
+        await testSuggestions("parent_one faz ", 7, StringRange.between(0, 7), "parent_one", "parent_two");
+        await testSuggestions("parent_one faz ", 8, StringRange.between(0, 8), "parent_one");
+        await testSuggestions("parent_one faz ", 10, StringRange.at(0));
+        await testSuggestions("parent_one faz ", 11, StringRange.at(11), "faz", "fbz", "gaz");
+        await testSuggestions("parent_one faz ", 12, StringRange.between(11, 12), "faz", "fbz");
+        await testSuggestions("parent_one faz ", 13, StringRange.between(11, 13), "faz");
+        await testSuggestions("parent_one faz ", 14, StringRange.at(0));
+        await testSuggestions("parent_one faz ", 15, StringRange.at(0));
     })
 
     it('getCompletionSuggestions_subCommands_partial', async () => {		
@@ -169,7 +169,7 @@ describe("Command Suggestion Test", () => {
         expect(result.getList()).to.deep.equal([new Suggestion(StringRange.between(9, 10), "sub")]);
     })
 
-    it('getCompletionSuggestions_movingCursor_redirect', () => {		
+    it('getCompletionSuggestions_movingCursor_redirect', async () => {		
         const actualOne = subject.register(literal("actual_one")
             .then(literal("faz"))
             .then(literal("fbz"))
@@ -181,15 +181,15 @@ describe("Command Suggestion Test", () => {
         subject.register(literal("redirect_one").redirect(actualOne));
         subject.register(literal("redirect_two").redirect(actualOne));
 
-        testSuggestions("redirect_one faz ", 0, StringRange.at(0), "actual_one", "actual_two", "redirect_one", "redirect_two");
-        testSuggestions("redirect_one faz ", 9, StringRange.between(0, 9), "redirect_one", "redirect_two");
-        testSuggestions("redirect_one faz ", 10, StringRange.between(0, 10), "redirect_one");
-        testSuggestions("redirect_one faz ", 12, StringRange.at(0));
-        testSuggestions("redirect_one faz ", 13, StringRange.at(13), "faz", "fbz", "gaz");
-        testSuggestions("redirect_one faz ", 14, StringRange.between(13, 14), "faz", "fbz");
-        testSuggestions("redirect_one faz ", 15, StringRange.between(13, 15), "faz");
-        testSuggestions("redirect_one faz ", 16, StringRange.at(0));
-        testSuggestions("redirect_one faz ", 17, StringRange.at(0));
+        await testSuggestions("redirect_one faz ", 0, StringRange.at(0), "actual_one", "actual_two", "redirect_one", "redirect_two");
+        await testSuggestions("redirect_one faz ", 9, StringRange.between(0, 9), "redirect_one", "redirect_two");
+        await testSuggestions("redirect_one faz ", 10, StringRange.between(0, 10), "redirect_one");
+        await testSuggestions("redirect_one faz ", 12, StringRange.at(0));
+        await testSuggestions("redirect_one faz ", 13, StringRange.at(13), "faz", "fbz", "gaz");
+        await testSuggestions("redirect_one faz ", 14, StringRange.between(13, 14), "faz", "fbz");
+        await testSuggestions("redirect_one faz ", 15, StringRange.between(13, 15), "faz");
+        await testSuggestions("redirect_one faz ", 16, StringRange.at(0));
+        await testSuggestions("redirect_one faz ", 17, StringRange.at(0));
     })
 
     it('getCompletionSuggestions_redirectPartial_withInputOffset', async () => {		

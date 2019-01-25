@@ -43,8 +43,10 @@ class CommandDispatcher {
         if (typeof input === "string")
             input = new StringReader_1.default(input);
         let parse;
-        if (!(source == null) && input instanceof StringReader_1.default)
-            parse = this.parse(input, source);
+        if (input instanceof StringReader_1.default) {
+            if (!(source == null))
+                parse = this.parse(input, source);
+        }
         else
             parse = input;
         if (parse.getReader().canRead()) {

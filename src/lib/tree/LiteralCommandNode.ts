@@ -74,7 +74,7 @@ export default class LiteralCommandNode<S> extends CommandNode<S> {
         return this.__parse(new StringReader(input)) > -1;
     }
     
-    public equals(o): boolean {
+    public equals(o: object): boolean {
         if (this === o) return true;        
         if (!(o instanceof  LiteralCommandNode)) return false;
         

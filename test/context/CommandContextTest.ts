@@ -19,22 +19,27 @@ describe('CommandContextTest', () => {
 		builder = new CommandContextBuilder(dispatcher, source, rootNode, 0);
 	})	
 
-	it('testGetArgument_nonexistent', () => {
+	it('testGetArgument_nonexistent', done => {
 		try {
-			builder.build("").getArgument("foo", 10);
-			assert.fail();
+			builder.build("").getArgument("foo", 10);			
 		} catch (ex) {
-
+			done();
+			return;
 		}
+
+		assert.fail();
     })
 
-    it('testGetArgument_wrongType', () => {		
+    it('testGetArgument_noConverter', done => {		
 		try {
-			const context = builder.withArgument("foo", new ParsedArgument(0, 1, 123)).build("123");
-			context.getArgument("foo", Primitive.String);
-			assert.fail();
+			const context = builder.withArgument("foo", new ParsedArgument(0, 1, Object.create(null))).build("123");
+			context.getArgument("foo", Primitive.String);			
 		} catch (ex) {
+			done();
+			return;
 		}
+
+		assert.fail();
     })
 
     it('testGetArgument', () => {		

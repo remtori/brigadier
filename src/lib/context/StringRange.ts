@@ -45,7 +45,7 @@ export default class StringRange {
         return this.end - this.start;
     }
     
-    public equals(o): boolean {
+    public equals(o: object): boolean {
         if (this === o) return true;        
         if (!(o instanceof  StringRange)) return false;
         return this.start === o.start && this.end == o.end;

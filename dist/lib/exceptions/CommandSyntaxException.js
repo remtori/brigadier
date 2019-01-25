@@ -12,6 +12,7 @@ class CommandSyntaxException extends Error {
         this.__message = message;
         this.input = input;
         this.cursor = cursor;
+        this.message = this.getMessage();
     }
     getMessage() {
         let message = this.__message.getString();
@@ -45,6 +46,9 @@ class CommandSyntaxException extends Error {
     }
     getCursor() {
         return this.cursor;
+    }
+    toString() {
+        return this.message;
     }
 }
 CommandSyntaxException.CONTEXT_AMOUNT = 10;

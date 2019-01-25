@@ -48,10 +48,11 @@ export default class CommandDispatcher<S> {
 		if (typeof input === "string")
 			input = new StringReader(input);
 		
-		let parse;
-		if (!(source == null) && input instanceof StringReader)
-			parse = this.parse(input, source);
-		else 
+		let parse: ParseResults<S>;
+        if (input instanceof StringReader) {
+            if (!(source == null))
+                parse = this.parse(input, source);            
+        } else
 			parse = input;		
  
         if (parse.getReader().canRead()) {

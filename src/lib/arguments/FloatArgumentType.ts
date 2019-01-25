@@ -70,10 +70,6 @@ export default class FloatArgumentType implements ArgumentType<number> {
         }        
 	}
 	
-	public listSuggestions(context: CommandContext<any>, builder: SuggestionsBuilder): Promise<Suggestions> {
-		return Suggestions.empty();
-	};
-
     public getExamples(): Iterable<string> {
         return EXAMPLES;
     }

@@ -4,7 +4,6 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const StringReader_1 = __importDefault(require("../StringReader"));
-const Suggestions_1 = __importDefault(require("../suggestion/Suggestions"));
 var StringType;
 (function (StringType) {
     StringType["SINGLE_WORD"] = "words_with_underscores";
@@ -45,13 +44,6 @@ class StringArgumentType {
     }
     toString() {
         return "string()";
-    }
-    listSuggestions(context, builder) {
-        return Suggestions_1.default.empty();
-    }
-    ;
-    getExamples() {
-        return [];
     }
     static escapeIfRequired(input) {
         for (let c of input) {

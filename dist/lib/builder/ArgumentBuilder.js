@@ -37,8 +37,8 @@ class ArgumentBuilder {
     getRequirement() {
         return this.requirement;
     }
-    redirect(target, modifier = null) {
-        return this.forward(target, modifier == null ? null : o => [modifier.apply(o)], false);
+    redirect(target, modifier) {
+        return this.forward(target, modifier == null ? null : (o) => [modifier.apply(o)], false);
     }
     fork(target, modifier) {
         return this.forward(target, modifier, true);

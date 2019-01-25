@@ -44,7 +44,7 @@ export default class Suggestion {
         return result;
     }
 
-    public equals(o): boolean {
+    public equals(o: object): boolean {
         if (this === o) return true;        
         if (!(o instanceof  Suggestion)) return false;
         

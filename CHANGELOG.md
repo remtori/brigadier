@@ -23,3 +23,5 @@ ___
 - Clearer declaration (d.ts)
 ## 0.0.10
 - Add constructor to `StringReader` in d.ts (Opps~)
+- Change `CommandSyntaxException` to more suitable for Javascript
+- Make `listSuggestions()` and `getExamples()` in `interface ArgumentType` optional

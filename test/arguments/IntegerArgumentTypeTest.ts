@@ -19,26 +19,32 @@ describe('integerumentTypeTest', () => {
         assert.equal(reader.canRead(), false);
     })
 
-    it('parse_tooSmall', () => {		
+    it('parse_tooSmall', done => {		
         const reader = new StringReader("-5");
         try {
-            integer(0, 100).parse(reader);
-            assert.fail();
+            integer(0, 100).parse(reader);            
         } catch (ex) {
             expect(ex.getType().toString()).to.equal(CommandSyntaxException.BUILT_IN_EXCEPTIONS.integerTooLow().toString());
             assert.equal(ex.getCursor(), 0);
+            done();
+            return;
         }
+
+        assert.fail();
     })
 
-    it('parse_tooBig', () => {		
+    it('parse_tooBig', done => {		
         const reader = new StringReader("5");
         try {
-            integer(-100, 0).parse(reader);
-            assert.fail();
+            integer(-100, 0).parse(reader);            
         } catch (ex) {
             expect(ex.getType().toString()).to.equal(CommandSyntaxException.BUILT_IN_EXCEPTIONS.integerTooHigh().toString());
             assert.equal(ex.getCursor(), 0);
+            done();
+            return;
         }
+
+        assert.fail();
     })
 
     it('testEquals', () => {		

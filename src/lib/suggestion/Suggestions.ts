@@ -27,7 +27,7 @@ export default class Suggestions {
         return this.suggestions.length === 0;
     }
 
-    public equals(o): boolean {
+    public equals(o: object): boolean {
         if (this === o) return true;
         
         if (!(o instanceof  Suggestions)) return false;

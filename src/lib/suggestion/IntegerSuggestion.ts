@@ -15,7 +15,7 @@ export default class IntegerSuggestion extends Suggestion {
         return this.value;
     }
 
-    public equals(o): boolean {
+    public equals(o: object): boolean {
         if (this === o) return true;
         
         if (!(o instanceof IntegerSuggestion)) return false;

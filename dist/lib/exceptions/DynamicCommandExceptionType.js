@@ -9,11 +9,11 @@ class DynamicCommandExceptionType {
         this.fn = fn;
         Error.captureStackTrace(this, DynamicCommandExceptionType);
     }
-    create(arg) {
-        return new CommandSyntaxException_1.default(this, this.fn(arg));
+    create(...args) {
+        return new CommandSyntaxException_1.default(this, this.fn(...args));
     }
-    createWithContext(reader, arg) {
-        return new CommandSyntaxException_1.default(this, this.fn(arg), reader.getString(), reader.getCursor());
+    createWithContext(reader, ...args) {
+        return new CommandSyntaxException_1.default(this, this.fn(...args), reader.getString(), reader.getCursor());
     }
 }
 exports.default = DynamicCommandExceptionType;

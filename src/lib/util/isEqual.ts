@@ -56,7 +56,7 @@ function isArrayEqual(a: Array<any>, b: Array<any>): boolean {
 	return true;
 }
 
-function isObjectEqual(a: object, b: object): boolean {
+function isObjectEqual(a: TypicalObject, b: TypicalObject): boolean {
 
 	const aKeys = Object.keys(a);
     const bKeys = Object.keys(b);
@@ -64,7 +64,12 @@ function isObjectEqual(a: object, b: object): boolean {
     if (aKeys.length != bKeys.length) return false;
     if (!aKeys.every(key => b.hasOwnProperty(key))) return false;
 
-    return aKeys.every(key => {
+    return aKeys.every((key: string) => {
       return isEqual(a[key], b[key])
     });
 }
+
+interface TypicalObject {
+	[ index: string ]: any;
+	[ index: number ]: any;
+};

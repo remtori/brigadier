@@ -59,7 +59,10 @@ export default class ArgumentCommandNode<S, T> extends CommandNode<S> {
     
     public listSuggestions(context: CommandContext<S>, builder: SuggestionsBuilder): Promise<Suggestions> {
         if (this.customSuggestions == null) {
-            return this.type.listSuggestions(context, builder);
+            if (typeof this.type.listSuggestions === "function")
+                return this.type.listSuggestions(context, builder);
+            else 
+                return Suggestions.empty();
         }
         else {
             return this.customSuggestions.getSuggestions(context, builder);
@@ -91,7 +94,7 @@ export default class ArgumentCommandNode<S, T> extends CommandNode<S> {
         return false;
     }
     
-    public equals(o): boolean {
+    public equals(o: object): boolean {
         if (this === o) return true;        
         if (!(o instanceof  ArgumentCommandNode)) return false;
         
@@ -106,7 +109,7 @@ export default class ArgumentCommandNode<S, T> extends CommandNode<S> {
     }
     
     public getExamples(): Iterable<string> {
-        return this.type.getExamples();
+        return typeof this.type.getExamples === "function" ? this.type.getExamples() : [];
     }
     
     public toString(): string {

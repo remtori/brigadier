@@ -7,6 +7,7 @@ const isEqual_1 = __importDefault(require("../util/isEqual"));
 const StringReader_1 = __importDefault(require("../StringReader"));
 const RequiredArgumentBuilder_1 = __importDefault(require("../builder/RequiredArgumentBuilder"));
 const ParsedArgument_1 = __importDefault(require("../context/ParsedArgument"));
+const Suggestions_1 = __importDefault(require("../suggestion/Suggestions"));
 const CommandNode_1 = __importDefault(require("./CommandNode"));
 const USAGE_ARGUMENT_OPEN = "<";
 const USAGE_ARGUMENT_CLOSE = ">";
@@ -41,7 +42,10 @@ class ArgumentCommandNode extends CommandNode_1.default {
     }
     listSuggestions(context, builder) {
         if (this.customSuggestions == null) {
-            return this.type.listSuggestions(context, builder);
+            if (typeof this.type.listSuggestions === "function")
+                return this.type.listSuggestions(context, builder);
+            else
+                return Suggestions_1.default.empty();
         }
         else {
             return this.customSuggestions.getSuggestions(context, builder);
@@ -82,7 +86,7 @@ class ArgumentCommandNode extends CommandNode_1.default {
         return this.name;
     }
     getExamples() {
-        return this.type.getExamples();
+        return typeof this.type.getExamples === "function" ? this.type.getExamples() : [];
     }
     toString() {
         return "<argument " + this.name + ":" + this.type + ">";

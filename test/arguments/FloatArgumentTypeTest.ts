@@ -19,26 +19,30 @@ describe('floatumentTypeTest', () => {
         assert.equal(reader.canRead(), false);
     })
 
-    it('parse_tooSmall', () => {		
+    it('parse_tooSmall', done => {		
         const reader = new StringReader("-5");
         try {
-            float(0, 100).parse(reader);
-            assert.fail();
+            float(0, 100).parse(reader);            
         } catch (ex) {
             expect(ex.getType().toString()).to.equal(CommandSyntaxException.BUILT_IN_EXCEPTIONS.floatTooLow().toString());
             assert.equal(ex.getCursor(), 0);
+            done();
+            return;
         }
+        assert.fail();
     })
 
-    it('parse_tooBig', () => {		
+    it('parse_tooBig', done => {		
         const reader = new StringReader("5");
         try {
-            float(-100, 0).parse(reader);
-            assert.fail();
+            float(-100, 0).parse(reader);            
         } catch (ex) {
             expect(ex.getType().toString()).to.equal(CommandSyntaxException.BUILT_IN_EXCEPTIONS.floatTooHigh().toString());
             assert.equal(ex.getCursor(), 0);
+            done();
+            return;
         }
+        assert.fail();
     })
 
     it('testEquals', () => {		

@@ -9,10 +9,22 @@ import ParsedCommandNode from "./ParsedCommandNode"
 import ArgumentType from "../arguments/ArgumentType"
 
 const PRIMITIVE_TO_WRAPPER = new Map<Primitive, Function>();
-PRIMITIVE_TO_WRAPPER.set(Primitive.Int, v => parseInt(v));
-PRIMITIVE_TO_WRAPPER.set(Primitive.Float, v => parseFloat(v));
-PRIMITIVE_TO_WRAPPER.set(Primitive.Boolean, v => v == true); // == is used intentionally here 
-PRIMITIVE_TO_WRAPPER.set(Primitive.String, v => v.toString());
+PRIMITIVE_TO_WRAPPER.set(Primitive.Int, (v: string) => parseInt(v));
+PRIMITIVE_TO_WRAPPER.set(Primitive.Float, (v: string) => parseFloat(v));
+PRIMITIVE_TO_WRAPPER.set(Primitive.String, <T>(v: NonNullable<T>) => v.toString());
+PRIMITIVE_TO_WRAPPER.set(Primitive.Boolean, (v: string | number | boolean) => {
+    switch(v){
+        case true:
+        case "true":
+        case 1:
+        case "1":
+        case "on":
+        case "yes":
+            return true;
+        default: 
+            return false;
+    }
+});
 
 export default class CommandContext<S> {    
 	
@@ -74,22 +86,27 @@ export default class CommandContext<S> {
             throw new Error("No such argument '" + name + "' exists on this command");
         }
 
-		const result = arg.getResult();
+		let result = arg.getResult();
 		if (clazz == null) {
 			return result;
 		} else if (PRIMITIVE_TO_WRAPPER.has(clazz)) {
-            return PRIMITIVE_TO_WRAPPER.get(clazz)(result);
+            try {
+                result = PRIMITIVE_TO_WRAPPER.get(clazz)(result);
+                return result;
+            } catch (ignore) {
+                throw new Error("Invaild Type: " + clazz.toString());
+            }
 		} else {
 			try {
 				if (result instanceof clazz)
 					return result;			
 			} catch(ignore) {
-				throw new Error("Invail Type: " + clazz.toString());
+				throw new Error("Invaild Type: " + clazz.toString());
 			}
 		}
     }
 
-    public equals(o): boolean {
+    public equals(o: object): boolean {
         if (this === o) return true;
         if (!(o instanceof CommandContext)) return false;
 
