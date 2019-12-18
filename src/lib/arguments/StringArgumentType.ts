@@ -1,4 +1,3 @@
-import Primitive from "../Primitive"
 import StringReader from "../StringReader"
 import CommandContext from "../context/CommandContext"
 import Suggestions from "../suggestion/Suggestions"
@@ -32,7 +31,7 @@ export default class StringArgumentType implements ArgumentType<string> {
     }
     
     public static getString(context: CommandContext<any>, name: string): string {
-        return context.getArgument(name, Primitive.String);
+        return context.getArgument(name, String);
     }
     
     public getType(): StringType {

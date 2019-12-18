@@ -25,3 +25,6 @@ ___
 - Add constructor to `StringReader` in d.ts (Opps~)
 - Change `CommandSyntaxException` to more suitable for Javascript
 - Make `listSuggestions()` and `getExamples()` in `interface ArgumentType` optional
+## 0.0.11
+- Replace `enum Primitive` with default JS Function `Number() String() Boolean()`
+- StringReader now allow scientific notation of numbers ex: `12e-3`

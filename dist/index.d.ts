@@ -1,10 +1,6 @@
 // Type definitions for brigadier[0.0.6]
 // Project: Brigadier
 // Definitions by: Remtori <https://github.com/Remtori>
-
-declare const enum Primitive {
-    Int, Float, Boolean, String
-}
 declare interface Command<S> {
     (context: CommandContext<S>): number;
 }
@@ -42,8 +38,8 @@ declare interface CommandExceptionType {
 }
 declare interface ArgumentType<T> {
 	parse(reader: StringReader): T;
-	listSuggestions(context: CommandContext<any>, builder: SuggestionsBuilder): Promise<Suggestions>;
-	getExamples(): Iterable<string>;
+	listSuggestions?(context: CommandContext<any>, builder: SuggestionsBuilder): Promise<Suggestions>;
+	getExamples?(): Iterable<string>;
 }
 declare interface SuggestionProvider<S> {
     getSuggestions(context: CommandContext<S>, builder: SuggestionsBuilder): Promise<Suggestions>;
@@ -245,7 +241,7 @@ declare class CommandContext<S> {
 	getLastChild(): CommandContext<S>;
 	getCommand(): Command<S>;
 	getSource(): S;
-	getArgument(name: string, clazz: any): any;
+	getArgument(name: string, clazz?: Function): any;
 	equals(o: any): boolean;
 	getRedirectModifier(): RedirectModifier<S>;
 	getRange(): StringRange;

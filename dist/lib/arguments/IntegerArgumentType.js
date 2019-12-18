@@ -14,7 +14,7 @@ class IntegerArgumentType {
         return new IntegerArgumentType(min, max);
     }
     static getInteger(context, name) {
-        return context.getArgument(name, 0 /* Int */);
+        return context.getArgument(name, Number);
     }
     getMinimum() {
         return this.minimum;

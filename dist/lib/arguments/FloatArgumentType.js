@@ -14,7 +14,7 @@ class FloatArgumentType {
         return new FloatArgumentType(min, max);
     }
     static getFloat(context, name) {
-        return context.getArgument(name, 1 /* Float */);
+        return context.getArgument(name, Number);
     }
     getMinimum() {
         return this.minimum;

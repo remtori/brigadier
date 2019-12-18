@@ -1,4 +1,3 @@
-import Primitive from "../Primitive"
 import StringReader from "../StringReader"
 import CommandContext from "../context/CommandContext"
 import Suggestions from "../suggestion/Suggestions"
@@ -7,17 +6,17 @@ import ArgumentType from "./ArgumentType"
 
 const EXAMPLES = ["true", "false"];
 
-export default class BoolArgumentType implements ArgumentType<boolean> {        
-    
-    private constructor () {        
+export default class BoolArgumentType implements ArgumentType<boolean> {
+
+    private constructor () {
     }
-    
+
     public static bool(): BoolArgumentType {
         return new BoolArgumentType();
     }
-    
+
     public static getBool(context: CommandContext<any>, name: string): boolean {
-        return context.getArgument(name, Primitive.Boolean);
+        return context.getArgument(name, Boolean);
     }
 
     public parse(reader: StringReader): boolean {
@@ -28,11 +27,11 @@ export default class BoolArgumentType implements ArgumentType<boolean> {
         if ("true".startsWith(builder.getRemaining().toLowerCase())) {
             builder.suggest("true");
         }
-        
+
         if ("false".startsWith(builder.getRemaining().toLowerCase())) {
             builder.suggest("false");
         }
-        
+
         return builder.buildPromise();
     }
 

@@ -1,4 +1,4 @@
-import { CommandDispatcher, literal, argument, string, ArgumentType, StringReader, CommandContext, SuggestionsBuilder, Suggestions, Primitive } from "../dist"
+import { CommandDispatcher, literal, argument, string, ArgumentType, StringReader, CommandContext, SuggestionsBuilder, Suggestions } from "../dist"
 
 class BlockPos implements ArgumentType<BlockPos> {
 
@@ -16,9 +16,7 @@ class BlockPos implements ArgumentType<BlockPos> {
 		this.z = reader.readInt();
 		return this;
 	}
-	listSuggestions(context: CommandContext<Object>, builder: SuggestionsBuilder) {
-		return Suggestions.empty();
-	}
+
 	getExamples() {
 		return [
 			"1 2 3"
@@ -35,7 +33,7 @@ dispatcher.register(
 				argument("block", string()).executes(context => {
 					console.log(context.getArgument("pos1", BlockPos))
 					console.log(context.getArgument("pos2", BlockPos))
-					console.log(context.getArgument("block", Primitive.String))
+					console.log(context.getArgument("block", String))
 					return 0;
 				}).build()
 			)

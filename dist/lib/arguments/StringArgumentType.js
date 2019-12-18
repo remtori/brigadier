@@ -24,7 +24,7 @@ class StringArgumentType {
         return new StringArgumentType(StringType.GREEDY_PHRASE);
     }
     static getString(context, name) {
-        return context.getArgument(name, 3 /* String */);
+        return context.getArgument(name, String);
     }
     getType() {
         return this.type;

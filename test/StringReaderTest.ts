@@ -244,9 +244,9 @@ describe('StringReader Test', () => {
 	})
 	
 	it('readInt_withRemaining', () => {		
-		const reader = new StringReader("1234567890 foo bar");
+		const reader = new StringReader("+1234567890 foo bar");
 		assert.equal(reader.readInt(), 1234567890);
-		assert.equal(reader.getRead(), "1234567890");
+		assert.equal(reader.getRead(), "+1234567890");
 		assert.equal(reader.getRemaining(), " foo bar");
 	})
 	
@@ -255,6 +255,13 @@ describe('StringReader Test', () => {
 		assert.equal(reader.readInt(), 1234567890);
 		assert.equal(reader.getRead(), "1234567890");
 		assert.equal(reader.getRemaining(), "foo bar");
+	})
+
+	it('readInt_exponent', () => {
+		const reader = new StringReader("12e3");
+		assert.equal(reader.readInt(), 12000);
+		assert.equal(reader.getRead(), "12e3");
+		assert.equal(reader.getRemaining(), "");
 	})
 	
 	it('readFloat', () => {		
@@ -310,6 +317,20 @@ describe('StringReader Test', () => {
 		assert.equal(reader.readFloat(), 12.34);
 		assert.equal(reader.getRead(), "12.34");
 		assert.equal(reader.getRemaining(), "foo bar");
+	})
+
+	it('readFloat_exponent', () => {
+		const reader = new StringReader("1.23E4");
+        assert.equal(reader.readFloat(), 12300.0);
+        assert.equal(reader.getRead(), "1.23E4");
+        assert.equal(reader.getRemaining(), "");
+	})
+
+	it('readFloat_negativeExponent', () => {
+		const reader = new StringReader("1.23E-4");
+        assert.equal(reader.readFloat(), 0.000123);
+        assert.equal(reader.getRead(), "1.23E-4");
+        assert.equal(reader.getRemaining(), "");
 	})
 	
 	it('expect_correct', () => {		

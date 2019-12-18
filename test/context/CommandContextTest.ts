@@ -4,7 +4,6 @@ import testEquality from "../utils/testEquality"
 import CommandContextBuilder from '../../src/lib/context/CommandContextBuilder'
 import CommandDispatcher from '../../src/lib/CommandDispatcher';
 import RootCommandNode from '../../src/lib/tree/RootCommandNode';
-import Primitive from '../../src/lib/Primitive';
 import ParsedArgument from '../../src/lib/context/ParsedArgument';
 import CommandNode from '../../src/lib/tree/CommandNode';
 import StringRange from '../../src/lib/context/StringRange';
@@ -21,7 +20,7 @@ describe('CommandContextTest', () => {
 
 	it('testGetArgument_nonexistent', done => {
 		try {
-			builder.build("").getArgument("foo", 10);			
+			builder.build("").getArgument("foo");			
 		} catch (ex) {
 			done();
 			return;
@@ -33,7 +32,7 @@ describe('CommandContextTest', () => {
     it('testGetArgument_noConverter', done => {		
 		try {
 			const context = builder.withArgument("foo", new ParsedArgument(0, 1, Object.create(null))).build("123");
-			context.getArgument("foo", Primitive.String);			
+			context.getArgument("foo", String);			
 		} catch (ex) {
 			done();
 			return;
@@ -44,7 +43,7 @@ describe('CommandContextTest', () => {
 
     it('testGetArgument', () => {		
         const context = builder.withArgument("foo", new ParsedArgument(0, 1, 123)).build("123");
-        assert.equal(context.getArgument("foo", Primitive.Int), 123);
+        assert.equal(context.getArgument("foo", Number), 123);
     })
 
     it('testSource', () => {		

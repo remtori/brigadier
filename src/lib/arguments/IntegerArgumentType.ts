@@ -1,4 +1,3 @@
-import Primitive from "../Primitive"
 import StringReader from "../StringReader"
 import CommandContext from "../context/CommandContext"
 import CommandSyntaxException from "../exceptions/CommandSyntaxException"
@@ -23,7 +22,7 @@ export default class IntegerArgumentType implements ArgumentType<number> {
     }
     
     public static getInteger(context: CommandContext<any>, name: string): number {
-        return context.getArgument(name, Primitive.Int);
+        return context.getArgument(name, Number);
     }
     
     public getMinimum(): number {

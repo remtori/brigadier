@@ -66,7 +66,7 @@ export default class StringReader implements ImmutableStringReader {
     }
     
     public static isAllowedNumber(c: string): boolean {
-        return c >= '0' && c <= '9' || c == '.' || c == '-';
+        return c >= '0' && c <= '9' || c == '.' || c == '-' || c == '+' || c == 'e' || c == 'E';
     }
     
     public skipWhitespace() {
@@ -87,8 +87,8 @@ export default class StringReader implements ImmutableStringReader {
             throw CommandSyntaxException.BUILT_IN_EXCEPTIONS.readerExpectedInt().createWithContext(this);
         }
         
-		const result = parseInt(number);		
-		if (isNaN(result) || result !== parseFloat(number)) {
+		const result = parseFloat(number);		
+		if (isNaN(result) || result !== Math.round(result)) {
 			this.cursor = start;
 			throw CommandSyntaxException.BUILT_IN_EXCEPTIONS.readerInvalidInt().createWithContext(this, number);
 		} else 
@@ -107,11 +107,7 @@ export default class StringReader implements ImmutableStringReader {
         }
         
 		const result = parseFloat(number);
-		const strictParseFloatTest = parseFloat(number.substring(result.toString().length, this.cursor));
-		if (isNaN(result) || (
-			!isNaN(strictParseFloatTest) &&
-			strictParseFloatTest !== 0
-		)) {
+		if (isNaN(result) || result !== Number(number)) {
 			this.cursor = start;
 			throw CommandSyntaxException.BUILT_IN_EXCEPTIONS.readerInvalidFloat().createWithContext(this, number);
 		} else 

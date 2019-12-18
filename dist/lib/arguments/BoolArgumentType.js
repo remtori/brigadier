@@ -8,7 +8,7 @@ class BoolArgumentType {
         return new BoolArgumentType();
     }
     static getBool(context, name) {
-        return context.getArgument(name, 2 /* Boolean */);
+        return context.getArgument(name, Boolean);
     }
     parse(reader) {
         return reader.readBoolean();

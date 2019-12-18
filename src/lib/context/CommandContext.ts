@@ -1,30 +1,10 @@
 import isEqual from "../util/isEqual"
-import Primitive from "../Primitive"
 import Command from "../Command"
 import RedirectModifier from "../RedirectModifier"
 import CommandNode from "../tree/CommandNode"
 import StringRange from "./StringRange"
 import ParsedArgument from "./ParsedArgument"
 import ParsedCommandNode from "./ParsedCommandNode"
-import ArgumentType from "../arguments/ArgumentType"
-
-const PRIMITIVE_TO_WRAPPER = new Map<Primitive, Function>();
-PRIMITIVE_TO_WRAPPER.set(Primitive.Int, (v: string) => parseInt(v));
-PRIMITIVE_TO_WRAPPER.set(Primitive.Float, (v: string) => parseFloat(v));
-PRIMITIVE_TO_WRAPPER.set(Primitive.String, <T>(v: NonNullable<T>) => v.toString());
-PRIMITIVE_TO_WRAPPER.set(Primitive.Boolean, (v: string | number | boolean) => {
-    switch(v){
-        case true:
-        case "true":
-        case 1:
-        case "1":
-        case "on":
-        case "yes":
-            return true;
-        default: 
-            return false;
-    }
-});
 
 export default class CommandContext<S> {    
 	
@@ -79,9 +59,9 @@ export default class CommandContext<S> {
         return this.source;
     }
 
-    public getArgument(name: string, clazz: any): any {
+    public getArgument(name: string, clazz?: Function): any {
         const arg: ParsedArgument<S, any> = this.args.get(name);
-
+        
         if (arg == null) {
             throw new Error("No such argument '" + name + "' exists on this command");
         }
@@ -89,21 +69,9 @@ export default class CommandContext<S> {
 		let result = arg.getResult();
 		if (clazz == null) {
 			return result;
-		} else if (PRIMITIVE_TO_WRAPPER.has(clazz)) {
-            try {
-                result = PRIMITIVE_TO_WRAPPER.get(clazz)(result);
-                return result;
-            } catch (ignore) {
-                throw new Error("Invaild Type: " + clazz.toString());
-            }
 		} else {
-			try {
-				if (result instanceof clazz)
-					return result;			
-			} catch(ignore) {
-				throw new Error("Invaild Type: " + clazz.toString());
-			}
-		}
+            return clazz(result);
+        }
     }
 
     public equals(o: object): boolean {

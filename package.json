@@ -1,7 +1,7 @@
 {
   "name": "node-brigadier",
-  "version": "0.0.10",
-  "description": "A javascript version of Mojangs Brigadier library",
+  "version": "0.0.12",
+  "description": "A javascript port of Mojangs Brigadier library",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "homepage": "http://github.com/remtori/brigadier",
@@ -14,15 +14,15 @@
   ],
   "dependencies": {},
   "devDependencies": {
-    "@types/chai": "^4.1.6",
-    "@types/mocha": "^5.2.5",
-    "@types/node": "^10.11.6",
+    "@types/chai": "^4.2.7",
+    "@types/mocha": "^5.2.7",
+    "@types/node": "^10.17.10",
     "chai": "^4.2.0",
     "mocha": "^5.2.0",
     "radargun": "^1.0.1",
-    "ts-mockito": "^2.3.1",
+    "ts-mockito": "^2.5.0",
     "ts-node": "^7.0.1",
-    "typescript": "^3.1.1"
+    "typescript": "^3.7.3"
   },
   "scripts": {
     "build": "tsc",
